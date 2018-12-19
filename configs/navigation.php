@@ -7,75 +7,10 @@
  */
 class Mai_Styles_Navigation {
 
-	protected $section = '';
+	protected $section;
 
-	function __construct( $panel_id, $config_id ) {
-
-		$this->section = 'maistyles_menus';
-
-		/* ********** *
-		 * Navigation *
-		 * ********** */
-		Kirki::add_section( $this->section, array(
-			'title' => esc_attr__( 'Menus', 'mai-styles' ),
-			'panel' => $panel_id,
-		) );
-
-		/**
-		 * Header Nav.
-		 */
-		Kirki::add_field( $config_id, $this->get_config( __( 'Header Nav', 'mai-styles' ), 'header_nav_color', '.nav-header', $this->has_menu( 'header' ) ) );
-
-		/**
-		 * Header Nav Submenu.
-		 */
-		Kirki::add_field( $config_id, $this->get_submenu_config( __( 'Header Nav Submenu', 'mai-styles' ), 'header_nav_submenu_color', '.nav-header', $this->has_submenu( 'header' ) ) );
-
-		/**
-		 * Header Nav Highlight.
-		 */
-		Kirki::add_field( $config_id, $this->get_highlight_config( __( 'Header Nav Highlight', 'mai-styles' ), 'header_nav_highlight_color', '.nav-header', $this->has_highlight( 'header' ) ) );
-
-		/**
-		 * Primary Nav.
-		 */
-		Kirki::add_field( $config_id, $this->get_config( __( 'Primary Nav', 'mai-styles' ), 'primary_nav_color', '.nav-primary', $this->has_menu( 'primary' ) ) );
-
-		/**
-		 * Primary Nav Submenu.
-		 */
-		Kirki::add_field( $config_id, $this->get_submenu_config( __( 'Primary Nav Submenu', 'mai-styles' ), 'primary_nav_submenu_color', '.nav-primary', $this->has_submenu( 'primary' ) ) );
-
-		/**
-		 * Primary Nav Highlight.
-		 */
-		Kirki::add_field( $config_id, $this->get_highlight_config( __( 'Primary Nav Highlight', 'mai-styles' ), 'primary_nav_highlight_color', '.nav-primary', $this->has_highlight( 'primary' ) ) );
-
-		/**
-		 * Primary Nav Search.
-		 */
-		Kirki::add_field( $config_id, $this->get_search_config( __( 'Primary Nav Search', 'mai-styles' ), 'primary_nav_search_color', '.nav-primary', $this->has_search( 'primary' ) ) );
-
-		/**
-		 * Secondary Nav.
-		 */
-		Kirki::add_field( $config_id, $this->get_config( __( 'Footer Nav', 'mai-styles' ), 'secondary_nav_color', '.nav-secondary', $this->has_menu( 'secondary' ) ) );
-
-		/**
-		 * Secondary Nav Submenu.
-		 */
-		Kirki::add_field( $config_id, $this->get_submenu_config( __( 'Footer Nav Submenu', 'mai-styles' ), 'secondary_nav_submenu_color', '.nav-secondary', $this->has_submenu( 'secondary' ) ) );
-
-		/**
-		 * Secondary Nav Highlight.
-		 */
-		Kirki::add_field( $config_id, $this->get_highlight_config( __( 'Footer Nav Highlight', 'mai-styles' ), 'secondary_nav_highlight_color', '.nav-secondary', $this->has_highlight( 'secondary' ) ) );
-
-		/**
-		 * Secondary Nav Search.
-		 */
-		Kirki::add_field( $config_id, $this->get_search_config( __( 'Footer Nav Search', 'mai-styles' ), 'secondary_nav_search_color', '.nav-secondary', $this->has_search( 'secondary' ) ) );
-
+	function __construct( $section ) {
+		$this->section = $section;
 	}
 
 	/**
@@ -116,6 +51,7 @@ class Mai_Styles_Navigation {
 					'element'  => array(
 						"{$class}",
 						"{$class} .sub-menu a",
+						"{$class} .nav-search",
 						"{$class} .nav-search:hover",
 						"{$class} .nav-search:focus",
 						".home {$class} .current-menu-item > a",
@@ -540,21 +476,3 @@ class Mai_Styles_Navigation {
 	}
 
 }
-
-/**
- * Create a function to instantiate the class.
- *
- * @since   0.1.0
- *
- * @return  object  The class.
- */
-function Mai_Styles_Navigation( $panel_id, $config_id ) {
-	return new Mai_Styles_Navigation( $panel_id, $config_id );
-}
-
-/**
- * Let's go!
- *
- * @since 0.1.0
- */
-Mai_Styles_Navigation( $panel_id, $config_id );

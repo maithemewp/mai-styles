@@ -194,8 +194,8 @@ final class Mai_Styles {
 		// Navigation.
 		include_once 'configs/navigation.php';
 
-		// Content.
-		include_once 'configs/content.php';
+		// Advanced.
+		include_once 'configs/advanced.php';
 
 		// Header & Footer.
 		// include_once 'configs/header-footer.php';
