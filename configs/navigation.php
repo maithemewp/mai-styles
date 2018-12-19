@@ -137,8 +137,6 @@ class Mai_Styles_Navigation {
 					'element'  => array(
 						"{$class} a:hover",
 						"{$class} a:focus",
-						// "{$class} .nav-search:hover",
-						// "{$class} .nav-search:focus",
 						"{$class} .sub-menu a:hover",
 						"{$class} .sub-menu a:focus",
 						"{$class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
@@ -154,7 +152,12 @@ class Mai_Styles_Navigation {
 						"{$class} .nav-search:focus",
 						"{$class} .sub-menu a:hover",
 						"{$class} .sub-menu a:focus",
+						"{$class} > .current-menu-item > a",
+						"{$class} > .current-menu-ancestor > a",
+						"{$class} > .menu-item-has-children:not(.highlight):hover > a",
+						"{$class} > .menu-item-has-children:not(.highlight):focus > a",
 						"{$class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
+						"{$class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
 					),
 				),
 				array(
