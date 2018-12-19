@@ -197,13 +197,9 @@ final class Mai_Styles {
 		// Advanced.
 		include_once 'configs/advanced.php';
 
-		// Header & Footer.
-		// include_once 'configs/header-footer.php';
-
-
 		// WooCommerce.
 		if ( class_exists( 'WooCommerce' ) ) {
-			// include_once 'configs/woocommerce.php';
+			include_once 'configs/woocommerce.php';
 		}
 
 	}

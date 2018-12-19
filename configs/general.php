@@ -46,12 +46,12 @@ Kirki::add_field( $config_id, array(
 		array(
 			'choice'   => 'link',
 			'property' => 'color',
-			'element'  => array( 'a' ),
+			'element'  => array( 'body a' ),
 		),
 		array(
 			'choice'   => 'link_hover',
 			'property' => 'color',
-			'element'  => array( 'a:hover', 'a:focus' ),
+			'element'  => array( 'body a:hover', 'body a:focus' ),
 		),
 	),
 ) );
@@ -338,8 +338,6 @@ Kirki::add_field( $config_id, array(
 				'input[type="submit"]',
 				'.button',
 				'.entry-content .button',
-				'.entry-content .more-link',
-				'.menu-item.highlight > a',
 				'.woocommerce a.button',
 				'.woocommerce button.button',
 				'.woocommerce input.button',
@@ -365,11 +363,6 @@ Kirki::add_field( $config_id, array(
 				'.button:focus',
 				'.entry-content .button:hover',
 				'.entry-content .button:focus',
-				'.entry-content .more-link:hover',
-				'.entry-content .more-link:focus',
-				'.menu-item.highlight.current-menu-item > a',
-				'.menu-item.highlight > a:hover',
-				'.menu-item.highlight > a:focus',
 				'.woocommerce a.button:hover',
 				'.woocommerce a.button:focus',
 				'.woocommerce button.button:hover',
@@ -494,6 +487,36 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 ) );
+Kirki::add_field( $config_id, array(
+	'type'      => 'typography',
+	'settings'  => 'button_typography',
+	'section'   => $section,
+	'transport' => 'auto',
+	'choices'   => array(
+		'fonts' => array(
+			'google' => array( 'popularity', 30 ),
+		),
+	),
+	'default'   => array(
+		'font-family'    => '',
+		'variant'        => '',
+		'font-size'      => '',
+		'letter-spacing' => '',
+		'text-transform' => '',
+	),
+	'output' => array(
+		array(
+			'element' => array(
+				'button',
+				'input[type="button"]',
+				'input[type="reset"]',
+				'input[type="submit"]',
+				'.button',
+				'.entry-content .button',
+			),
+		),
+	),
+) );
 
 /**
  * Buttons (Alternate/Secondary).
@@ -599,6 +622,34 @@ Kirki::add_field( $config_id, array(
 				// '.woocommerce a.button.alt:focus',
 				'.woocommerce a.button.add_to_cart_button:hover',
 				'.woocommerce a.button.add_to_cart_button:focus',
+			),
+		),
+	),
+) );
+Kirki::add_field( $config_id, array(
+	'type'      => 'typography',
+	'settings'  => 'button_alt_typography',
+	'section'   => $section,
+	'transport' => 'auto',
+	'choices'   => array(
+		'fonts' => array(
+			'google' => array( 'popularity', 30 ),
+		),
+	),
+	'default'   => array(
+		'font-family'    => '',
+		'variant'        => '',
+		'font-size'      => '',
+		'letter-spacing' => '',
+		'text-transform' => '',
+	),
+	'output' => array(
+		array(
+			'element' => array(
+				'.button.alt',
+				'.comment-reply-link',
+				'.entry-content .button.alt',
+				'.entry-content .more-link',
 			),
 		),
 	),
