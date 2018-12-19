@@ -146,6 +146,44 @@ class Mai_Styles_Navigation {
 	}
 
 	/**
+	 * Get the config for menu typography.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  The kirki config.
+	 */
+	function get_typography_config( $key, $class, $callback ) {
+
+		return array(
+			'type'      => 'typography',
+			'settings'  => $key,
+			'section'   => $this->section,
+			'transport' => 'auto',
+			'choices'   => array(
+				'fonts' => array(
+					'google' => array( 'popularity', 30 ),
+				),
+			),
+			'default'   => array(
+				'font-family'    => '',
+				'font-size'      => '',
+				'variant'        => '',
+				'letter-spacing' => '',
+				'text-transform' => '',
+			),
+			'output' => array(
+				array(
+					'element' => array(
+						"{$class} a",
+						"{$class} .menu-item.highlight > a",
+					),
+				),
+			),
+			'active_callback' => $callback,
+		);
+	}
+
+	/**
 	 * Get the config for a submenu.
 	 *
 	 * @since   0.1.0
@@ -229,6 +267,42 @@ class Mai_Styles_Navigation {
 						"{$class} .sub-menu .current-menu-ancestor > a",
 						"{$class} .sub-menu .current-menu-ancestor > a:hover",
 						"{$class} .sub-menu .current-menu-ancestor > a:focus",
+					),
+				),
+			),
+			'active_callback' => $callback,
+		);
+	}
+
+	/**
+	 * Get the config for submenu typography.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  The kirki config.
+	 */
+	function get_submenu_typography_config( $key, $class, $callback ) {
+
+		return array(
+			'type'      => 'typography',
+			'settings'  => $key,
+			'section'   => $this->section,
+			'transport' => 'auto',
+			'choices'   => array(
+				'fonts' => array(
+					'google' => array( 'popularity', 30 ),
+				),
+			),
+			'default'   => array(
+				'font-size'      => '',
+				'variant'        => '',
+				'letter-spacing' => '',
+				'text-transform' => '',
+			),
+			'output' => array(
+				array(
+					'element' => array(
+						"{$class} .sub-menu a",
 					),
 				),
 			),
