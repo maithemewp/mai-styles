@@ -126,13 +126,17 @@ final class Mai_Styles {
 	/**
 	 * Include required files.
 	 *
+	 * composer require yahnis-elsts/plugin-update-checker
+	 * composer require aristath/kirki
+	 *
 	 * @access  private
 	 * @since   0.1.0
 	 * @return  void
 	 */
 	private function includes() {
-		include_once MAI_STYLES_INCLUDES_DIR . 'vendor/class-kirki-installer-section.php';
-		// foreach ( glob( MAI_STYLES_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
+		// require_once __DIR__ . '/vendor/autoload.php';
+		require __DIR__ . '/vendor/autoload.php';
+		// include_once MAI_STYLES_INCLUDES_DIR . 'vendor/class-kirki-installer-section.php';
 	}
 
 	public function setup() {
@@ -153,7 +157,7 @@ final class Mai_Styles {
 			return;
 		}
 		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-			require_once MAI_STYLES_INCLUDES_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php'; // 4.4
+			return;
 		}
 		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-styles/', __FILE__, 'mai-styles' );
 	}
@@ -164,10 +168,6 @@ final class Mai_Styles {
 	 * @return  void
 	 */
 	function settings() {
-
-		if ( ! class_exists( 'Kirki' ) ) {
-			return;
-		}
 
 		$config_id      = 'mai_styles';
 		$panel_id       = 'mai_styles';
