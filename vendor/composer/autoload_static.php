@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4f5e0ba81d285981a8446d1e29db6341
+class ComposerStaticInit51175f3dba0a295a99dfc9444c3fc630
 {
     public static $files = array (
         'ff94b54cc49d91067b6c55e8792511c4' => __DIR__ . '/..' . '/aristath/kirki/kirki.php',

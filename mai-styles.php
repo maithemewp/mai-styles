@@ -5,7 +5,7 @@
  * Plugin URI:      https://maitheme.com/
  * Description:     Easily adjust fonts, colors, and more in Mai Theme powered websites.
  *
- * Version:         0.1.0
+ * Version:         0.1.1
  *
  * GitHub URI:      maithemewp/mai-styles
  *
@@ -93,7 +93,7 @@ final class Mai_Styles {
 
 		// Plugin version.
 		if ( ! defined( 'MAI_STYLES_VERSION' ) ) {
-			define( 'MAI_STYLES_VERSION', '0.2.2' );
+			define( 'MAI_STYLES_VERSION', '0.1.1' );
 		}
 
 		// Plugin Folder Path.
@@ -134,22 +134,46 @@ final class Mai_Styles {
 	 * @return  void
 	 */
 	private function includes() {
-		// require_once __DIR__ . '/vendor/autoload.php';
-		require __DIR__ . '/vendor/autoload.php';
-		// include_once MAI_STYLES_INCLUDES_DIR . 'vendor/class-kirki-installer-section.php';
+		require_once __DIR__ . '/vendor/autoload.php';
 	}
 
+	/**
+	 * Setup the plugin.
+	 *
+	 * @access  private
+	 * @since   0.1.0
+	 * @return  void
+	 */
 	public function setup() {
+		// Updater.
 		add_action( 'plugins_loaded', array( $this, 'updater' ) );
-		add_action( 'init',           array( $this, 'settings' ) );
-		add_action( 'login_head',     array( $this, 'login_styles' ) );
+		// Bail if no Kirki.
+		if ( ! class_exists( 'Kirki' ) ) {
+			return;
+		}
+		/**
+		 * This allows Kirki to run in a symlinked plugin on my computer.
+		 * Sorry for the extra code just for me ¯\_(ツ)_/¯
+		 */
+		$url = Kirki::$url;
+		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/' ) ) {
+			add_filter( 'kirki_config', function( $config ) use ( $url ) {
+				$url_path = isset( $config['url_path'] ) ? $config['url_path']: $url;
+				$new_url  = str_replace( '/Users/JiveDig/Plugins/mai-styles/', MAI_STYLES_PLUGIN_URL, $url_path );
+				$config['url_path'] = $new_url;
+				return $config;
+			});
+		}
+		// Hooks.
+		add_action( 'init',       array( $this, 'settings' ) );
+		add_action( 'login_head', array( $this, 'login_styles' ) );
 	}
 
 	/**
 	 * Setup the updater.
 	 *
+	 * @since   0.1.0
 	 * @uses    https://github.com/YahnisElsts/plugin-update-checker/
-	 *
 	 * @return  void
 	 */
 	public function updater() {
@@ -165,6 +189,7 @@ final class Mai_Styles {
 	/**
 	 * Register the customizer settings..
 	 *
+	 * @since   0.1.0
 	 * @return  void
 	 */
 	function settings() {
@@ -172,6 +197,11 @@ final class Mai_Styles {
 		$config_id      = 'mai_styles';
 		$panel_id       = 'mai_styles';
 		$settings_field = 'mai_styles';
+		$config         = array(
+			'capability'  => 'edit_theme_options',
+			'option_type' => 'option',
+			'option_name' => $settings_field,
+		);
 
 		Kirki::add_config( $config_id, array(
 			'capability'  => 'edit_theme_options',
@@ -201,13 +231,13 @@ final class Mai_Styles {
 		if ( class_exists( 'WooCommerce' ) ) {
 			include_once 'configs/woocommerce.php';
 		}
-
 	}
 
 	/**
 	 * Add custom login styles based on front end styles.
 	 * If using a logo and site header is dark, login page would look weird, this matches a little more consistenty.
 	 *
+	 * @since   0.1.0
 	 * @return  void
 	 */
 	function login_styles() {

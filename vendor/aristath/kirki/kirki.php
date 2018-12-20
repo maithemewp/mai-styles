@@ -49,6 +49,7 @@ if ( ! defined( 'KIRKI_VERSION' ) ) {
 
 // Make sure the path is properly set.
 Kirki::$path = wp_normalize_path( dirname( __FILE__ ) );
+
 Kirki_Init::set_url();
 
 new Kirki_Controls();
@@ -70,7 +71,7 @@ $kirki = kirki();
 // Instantiate the modules.
 $kirki->modules = new Kirki_Modules();
 
-Kirki::$url = plugins_url( '', __FILE__ );
+Kirki::$url = apply_filters( 'kirki_url', plugins_url( '', __FILE__ ) );
 
 // Instantiate classes.
 new Kirki();
