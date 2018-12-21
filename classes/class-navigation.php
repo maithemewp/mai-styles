@@ -1,17 +1,5 @@
 <?php
 
-/* ***** *
- * Menus *
- * ***** */
-$menus = array(
-	'header'    => __( 'Header Menu', 'mai-styles' ),
-	'primary'   => __( 'Primary Menu', 'mai-styles' ),
-	'secondary' => __( 'Footer Menu', 'mai-styles' ),
-);
-foreach ( $menus as $menu_name => $label ) {
-	$settings = new Mai_Styles_Menu( $config_id, $panel_id, $menu_name, $label );
-}
-
 /**
  * Setup the menus customizer settings.
  *
@@ -26,45 +14,59 @@ class Mai_Styles_Menu {
 	protected $has_submenu;
 	protected $has_highlight;
 	protected $has_search;
+	protected $labels;
 
-	function __construct( $config_id, $panel_id, $menu_name, $label ) {
+	function __construct( $config_id, $section, $menu_name ) {
 
 		$this->config_id     = $config_id;
 		$this->menu_name     = $menu_name;
-		$this->section       = sprintf( 'maistyles_%s_menu', $this->menu_name );
+		$this->section       = $section;
 		$this->class         = sprintf( '.nav-%s', $this->menu_name );
 		$this->has_menu      = $this->has_menu( $this->menu_name );
 		$this->has_submenu   = $this->has_submenu( $this->menu_name );
 		$this->has_highlight = $this->has_highlight( $this->menu_name );
 		$this->has_search    = $this->has_search( $this->menu_name );
 
-		/* **** *
-		 * Menu *
-		 * **** */
-		Kirki::add_section( $this->section, array(
-			'title' => $label,
-			'panel' => $panel_id,
-		) );
+		$this->labels = array(
+			'header' => array(
+				'color'              => __( 'Header Menu Color', 'mai-styles' ),
+				'submenu_color'      => __( 'Header Menu Submenu Color', 'mai-styles' ),
+				'typography'         => __( 'Header Menu Typography', 'mai-styles' ),
+				'submenu_typography' => __( 'Header Menu Submenu Typography', 'mai-styles' ),
+			),
+			'primary' => array(
+				'color'              => __( 'Primary Menu Color', 'mai-styles' ),
+				'submenu_color'      => __( 'Primary Menu Submenu Color', 'mai-styles' ),
+				'typography'         => __( 'Primary Menu Typography', 'mai-styles' ),
+				'submenu_typography' => __( 'Primary Menu Submenu Typography', 'mai-styles' ),
+			),
+			'secondary' => array(
+				'color'              => __( 'Footer Color', 'mai-styles' ),
+				'submenu_color'      => __( 'Footer Submenu Color', 'mai-styles' ),
+				'typography'         => __( 'Footer Typography', 'mai-styles' ),
+				'submenu_typography' => __( 'Footer Submenu Typography', 'mai-styles' ),
+			),
+		);
 
 		/**
-		 * Colors
+		 * Color
 		 */
-		Kirki::add_field( $this->config_id, $this->get_config( __( 'Colors', 'mai-styles' ) ) );
+		Kirki::add_field( $this->config_id, $this->get_color_config( $this->labels[ $this->menu_name ]['color'] ) );
 
 		/**
-		 * Submenu Colors.
+		 * Submenu Color.
 		 */
-		Kirki::add_field( $this->config_id, $this->get_submenu_config( __( 'Submenu Colors', 'mai-styles' ) ) );
+		Kirki::add_field( $this->config_id, $this->get_submenu_color_config( $this->labels[ $this->menu_name ]['submenu_color'] ) );
 
 		/**
 		 * Typography.
 		 */
-		Kirki::add_field( $this->config_id, $this->get_typography_config( __( 'Typography', 'mai-styles' ) ) );
+		Kirki::add_field( $this->config_id, $this->get_typography_config( $this->labels[ $this->menu_name ]['typography'] ) );
 
 		/**
 		 * Submenu Typography.
 		 */
-		Kirki::add_field( $this->config_id, $this->get_submenu_typography_config( __( 'Submenu Typography', 'mai-styles' ) ) );
+		Kirki::add_field( $this->config_id, $this->get_submenu_typography_config( $this->labels[ $this->menu_name ]['submenu_typography'] ) );
 	}
 
 	/**
@@ -74,7 +76,7 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The kirki config.
 	 */
-	function get_config( $label = '' ) {
+	function get_color_config( $label = '' ) {
 
 		$config = array(
 			'type'      => 'multicolor',
@@ -82,9 +84,9 @@ class Mai_Styles_Menu {
 			'label'     => $label,
 			'section'   => $this->section,
 			'transport' => 'auto',
-			'choices'   => $this->get_config_choices(),
-			'default'   => $this->get_config_defaults(),
-			'output'    => $this->get_config_output(),
+			'choices'   => $this->get_color_config_choices(),
+			'default'   => $this->get_color_config_defaults(),
+			'output'    => $this->get_color_config_output(),
 			'active_callback' => function() {
 				return $this->has_menu;
 			},
@@ -118,7 +120,7 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The choices config.
 	 */
-	function get_config_choices() {
+	function get_color_config_choices() {
 		$choices = array(
 			'menu_bg'            => esc_attr__( 'Background', 'mai-styles' ),
 			'item_color'         => esc_attr__( 'Item Color', 'mai-styles' ),
@@ -150,7 +152,7 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The defaults config.
 	 */
-	function get_config_defaults() {
+	function get_color_config_defaults() {
 		$defaults = array(
 			'menu_bg'            => '',
 			'item_color'         => '',
@@ -182,7 +184,7 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The output config.
 	 */
-	function get_config_output() {
+	function get_color_config_output() {
 		$output = array(
 			array(
 				'choice'   => 'menu_bg',
@@ -322,7 +324,7 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The kirki config.
 	 */
-	function get_submenu_config( $label = '' ) {
+	function get_submenu_color_config( $label = '' ) {
 
 		return array(
 			'type'      => 'multicolor',

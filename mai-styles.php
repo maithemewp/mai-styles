@@ -102,8 +102,8 @@ final class Mai_Styles {
 		}
 
 		// Plugin Includes Path.
-		if ( ! defined( 'MAI_STYLES_INCLUDES_DIR' ) ) {
-			define( 'MAI_STYLES_INCLUDES_DIR', MAI_STYLES_PLUGIN_DIR . 'includes/' );
+		if ( ! defined( 'MAI_STYLES_CLASSES_DIR' ) ) {
+			define( 'MAI_STYLES_CLASSES_DIR', MAI_STYLES_PLUGIN_DIR . 'classes/' );
 		}
 
 		// Plugin Folder URL.
@@ -135,6 +135,8 @@ final class Mai_Styles {
 	 */
 	private function includes() {
 		require_once __DIR__ . '/vendor/autoload.php';
+		// Classes.
+		foreach ( glob( MAI_STYLES_CLASSES_DIR . '*.php' ) as $file ) { include_once $file; }
 	}
 
 	/**
@@ -154,6 +156,7 @@ final class Mai_Styles {
 			return;
 		}
 
+		// Disable deafult loader to keep things looking like regular WP.
 		add_filter( 'kirki_config', function( $config ) {
 			return wp_parse_args( array(
 				'disable_loader' => true,
@@ -165,10 +168,10 @@ final class Mai_Styles {
 		 * Sorry for the extra code just for me ¯\_(ツ)_/¯
 		 */
 		$url = Kirki::$url;
-		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/mai-styles/' ) ) {
+		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/mai-styles' ) ) {
 			add_filter( 'kirki_config', function( $config ) use ( $url ) {
 				$url_path = isset( $config['url_path'] ) ? $config['url_path']: $url;
-				$new_url  = str_replace( '/Users/JiveDig/Plugins/mai-styles/', MAI_STYLES_PLUGIN_URL, $url_path );
+				$new_url  = str_replace( '/Users/JiveDig/Plugins/mai-styles', MAI_STYLES_PLUGIN_URL, $url_path );
 				$config['url_path'] = $new_url;
 				return $config;
 			});
@@ -213,6 +216,9 @@ final class Mai_Styles {
 			'option_name' => $settings_field,
 		);
 
+		/**
+		 * Kirki Config.
+		 */
 		Kirki::add_config( $config_id, array(
 			'capability'  => 'edit_theme_options',
 			'option_type' => 'option',
@@ -220,21 +226,25 @@ final class Mai_Styles {
 		) );
 
 		/**
-		 * Mai Styles
+		 * Mai Styles.
 		 */
 		Kirki::add_panel( $panel_id, array(
-			'title'    => esc_attr__( 'Mai Styles', 'mai-styles' ),
-			'priority' => 55,
+			'title'       => esc_attr__( 'Mai Styles', 'mai-styles' ),
+			'description' => esc_attr__( 'Loading more than 1-2 Google fonts may slow down your site.', 'mai-styles' ),
+			'priority'    => 55,
 		) );
 
 		// General.
 		include_once 'configs/general.php';
 
-		// Navigation.
-		include_once 'configs/navigation.php';
+		// Header.
+		include_once 'configs/header.php';
 
-		// Structure.
-		include_once 'configs/structure.php';
+		// Content.
+		include_once 'configs/content.php';
+
+		// Footer.
+		include_once 'configs/footer.php';
 
 		// WooCommerce.
 		include_once 'configs/woocommerce.php';
