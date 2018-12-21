@@ -116,4 +116,16 @@ Kirki::add_field( $config_id, array(
 /**
  * Footer Menu.
  */
-$settings = new Mai_Styles_Menu( $config_id, $panel_id, 'secondary' );
+$secondary_menu = new Mai_Styles_Menu( $config_id, $section, 'secondary' );
+
+// Color.
+// $secondary_menu->get_color_config();
+
+// Submenu Color.
+// $secondary_menu->get_submenu_color_config();
+
+// Typography.
+// $secondary_menu->get_typography_config();
+
+// Submenu Typography.
+// $secondary_menu->get_submenu_typography_config();

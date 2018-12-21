@@ -30,15 +30,15 @@ class Mai_Styles_Menu {
 		$this->labels = array(
 			'header' => array(
 				'color'              => __( 'Header Menu Color', 'mai-styles' ),
-				'submenu_color'      => __( 'Header Menu Submenu Color', 'mai-styles' ),
+				'submenu_color'      => __( 'Header Submenu Color', 'mai-styles' ),
 				'typography'         => __( 'Header Menu Typography', 'mai-styles' ),
-				'submenu_typography' => __( 'Header Menu Submenu Typography', 'mai-styles' ),
+				'submenu_typography' => __( 'Header Submenu Typography', 'mai-styles' ),
 			),
 			'primary' => array(
 				'color'              => __( 'Primary Menu Color', 'mai-styles' ),
-				'submenu_color'      => __( 'Primary Menu Submenu Color', 'mai-styles' ),
+				'submenu_color'      => __( 'Primary Submenu Color', 'mai-styles' ),
 				'typography'         => __( 'Primary Menu Typography', 'mai-styles' ),
-				'submenu_typography' => __( 'Primary Menu Submenu Typography', 'mai-styles' ),
+				'submenu_typography' => __( 'Primary Submenu Typography', 'mai-styles' ),
 			),
 			'secondary' => array(
 				'color'              => __( 'Footer Color', 'mai-styles' ),
@@ -51,22 +51,50 @@ class Mai_Styles_Menu {
 		/**
 		 * Color
 		 */
-		Kirki::add_field( $this->config_id, $this->get_color_config( $this->labels[ $this->menu_name ]['color'] ) );
+		Kirki::add_field( $this->config_id, $this->get_color_config() );
 
 		/**
 		 * Submenu Color.
 		 */
-		Kirki::add_field( $this->config_id, $this->get_submenu_color_config( $this->labels[ $this->menu_name ]['submenu_color'] ) );
+		Kirki::add_field( $this->config_id, $this->get_submenu_color_config() );
+
+		if ( 'header' === $this->menu_name ) {
+
+			/**
+			 * Header Scroll Color.
+			 */
+			Kirki::add_field( $config_id, array(
+				'type'            => 'multicolor',
+				'settings'        => 'site_header_scroll_color',
+				'label'           => __( 'Header Scroll', 'mai-styles' ),
+				'section'         => $section,
+				'transport'       => 'auto',
+				'default'         => '',
+				'choices'         => $this->get_header_scroll_choices(),
+				'default'         => $this->get_header_scroll_defaults(),
+				'output'          => $this->get_header_scroll_output(),
+				'active_callback' => function() {
+					$header_style = genesis_get_option( 'header_style' );
+					if ( in_array( $header_style, array( 'sticky', 'reveal', 'sticky_shrink', 'reveal_shrink' ) ) ) {
+						if ( $this->has_menu ) {
+							return true;
+						}
+					}
+					return false;
+				},
+			) );
+
+		}
 
 		/**
 		 * Typography.
 		 */
-		Kirki::add_field( $this->config_id, $this->get_typography_config( $this->labels[ $this->menu_name ]['typography'] ) );
+		Kirki::add_field( $this->config_id, $this->get_typography_config() );
 
 		/**
 		 * Submenu Typography.
 		 */
-		Kirki::add_field( $this->config_id, $this->get_submenu_typography_config( $this->labels[ $this->menu_name ]['submenu_typography'] ) );
+		Kirki::add_field( $this->config_id, $this->get_submenu_typography_config() );
 	}
 
 	/**
@@ -76,12 +104,12 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The kirki config.
 	 */
-	function get_color_config( $label = '' ) {
+	function get_color_config() {
 
 		$config = array(
 			'type'      => 'multicolor',
 			'settings'  => sprintf( '%s_nav_color', $this->menu_name ),
-			'label'     => $label,
+			'label'     => $this->labels[ $this->menu_name ]['color'],
 			'section'   => $this->section,
 			'transport' => 'auto',
 			'choices'   => $this->get_color_config_choices(),
@@ -317,6 +345,129 @@ class Mai_Styles_Menu {
 		return $output;
 	}
 
+	function get_header_scroll_choices() {
+		return array(
+			'header_bg'          => esc_attr__( 'Header Background', 'mai-styles' ),
+			'item_color'         => esc_attr__( 'Item Color', 'mai-styles' ),
+			'item_hover_color'   => esc_attr__( 'Item Hover Color', 'mai-styles' ),
+			'item_current_color' => esc_attr__( 'Current Item Color', 'mai-styles' ),
+		);
+	}
+
+	function get_header_scroll_defaults() {
+		return array(
+			'header_bg'          => '',
+			'item_color'         => '',
+			'item_hover_color'   => '',
+			'item_current_color' => '',
+		);
+	}
+
+	function get_header_scroll_output() {
+		$output = array(
+			array(
+				'choice'   => 'header_bg',
+				'property' => 'background-color',
+				'element'  => array(
+					"body.scroll .site-header",
+				),
+			),
+			array(
+				'choice'   => 'item_color',
+				'property' => 'color',
+				'element'  => array(
+					"body.scroll {$this->class} a",
+					"body.scroll {$this->class} .nav-search",
+					"body.scroll {$this->class} .sub-menu a",
+					"body.scroll.home {$this->class} .current-menu-item > a",
+				),
+			),
+			array(
+				'choice'   => 'item_hover_color',
+				'property' => 'color',
+				'element'  => array(
+					"body.scroll {$this->class} a:hover",
+					"body.scroll {$this->class} a:focus",
+					"body.scroll {$this->class} .nav-search:hover",
+					"body.scroll {$this->class} .nav-search:focus",
+					"body.scroll {$this->class} .sub-menu a:hover",
+					"body.scroll {$this->class} .sub-menu a:focus",
+					"body.scroll {$this->class} > .current-menu-item > a",
+					"body.scroll {$this->class} > .current-menu-ancestor > a",
+					"body.scroll {$this->class} > .menu-item-has-children:not(.highlight):hover > a",
+					"body.scroll {$this->class} > .menu-item-has-children:not(.highlight):focus > a",
+					"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
+					"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
+				),
+			),
+			array(
+				'choice'   => 'item_current_color',
+				'property' => 'color',
+				'element'  => array(
+					"body.scroll {$this->class} .current-menu-item > a",
+					"body.scroll {$this->class} .current-menu-item > a:hover",
+					"body.scroll {$this->class} .current-menu-item > a:focus",
+					"body.scroll {$this->class} .current-menu-ancestor > a",
+					"body.scroll {$this->class} .current-menu-ancestor > a:hover",
+					"body.scroll {$this->class} .current-menu-ancestor > a:focus",
+				),
+			),
+		);
+		if ( $this->has_highlight ) {
+			$output = array_merge( $output, array(
+				array(
+					'choice'   => 'button_bg',
+					'property' => 'background-color',
+					'element'  => array(
+						"body.scroll {$this->class} .highlight > a",
+						"body.scroll {$this->class} .highlight.current-menu-item > a",
+					),
+				),
+				array(
+					'choice'   => 'button_color',
+					'property' => 'color',
+					'element'  => array(
+						"body.scroll {$this->class} .highlight > a",
+						"body.scroll {$this->class} .highlight.current-menu-item > a",
+					),
+				),
+				array(
+					'choice'   => 'button_hover_bg',
+					'property' => 'background-color',
+					'element'  => array(
+						"body.scroll {$this->class} .highlight > a:hover",
+						"body.scroll {$this->class} .highlight > a:focus",
+						"body.scroll {$this->class} .highlight.current-menu-item > a:hover",
+						"body.scroll {$this->class} .highlight.current-menu-item > a:focus",
+					),
+				),
+				array(
+					'choice'   => 'button_hover_color',
+					'property' => 'color',
+					'element'  => array(
+						"body.scroll {$this->class} .highlight > a:hover",
+						"body.scroll {$this->class} .highlight > a:focus",
+						"body.scroll {$this->class} .highlight.current-menu-item > a:hover",
+						"body.scroll {$this->class} .highlight.current-menu-item > a:focus",
+					),
+				),
+			) );
+		}
+		if ( $this->has_search ) {
+			$output = array_merge( $output, array(
+				array(
+					'choice'   => 'search_hover_color',
+					'property' => 'color',
+					'element'  => array(
+						"body.scroll {$this->class} .nav-search:hover",
+						"body.scroll {$this->class} .nav-search:focus",
+					),
+				),
+			) );
+		}
+		return $output;
+	}
+
 	/**
 	 * Get the config for a submenu.
 	 *
@@ -324,12 +475,12 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The kirki config.
 	 */
-	function get_submenu_color_config( $label = '' ) {
+	function get_submenu_color_config() {
 
 		return array(
 			'type'      => 'multicolor',
 			'settings'  => sprintf( '%s_nav_submenu_color', $this->menu_name ),
-			'label'     => $label,
+			'label'     => $this->labels[ $this->menu_name ]['submenu_color'],
 			'section'   => $this->section,
 			'transport' => 'auto',
 			'choices'   => array(
@@ -417,12 +568,12 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The kirki config.
 	 */
-	function get_typography_config( $label = '' ) {
+	function get_typography_config() {
 
 		return array(
 			'type'      => 'typography',
 			'settings'  => sprintf( '%s_nav_typography', $this->menu_name ),
-			'label'     => $label,
+			'label'     => $this->labels[ $this->menu_name ]['typography'],
 			'section'   => $this->section,
 			'transport' => 'auto',
 			'choices'   => array(
@@ -458,12 +609,12 @@ class Mai_Styles_Menu {
 	 *
 	 * @return  array  The kirki config.
 	 */
-	function get_submenu_typography_config( $label = '' ) {
+	function get_submenu_typography_config() {
 
 		return array(
 			'type'      => 'typography',
 			'settings'  => sprintf( '%s_nav_submenu_typography', $this->menu_name ),
-			'label'     => $label,
+			'label'     => $this->labels[ $this->menu_name ]['submenu_typography'],
 			'section'   => $this->section,
 			'transport' => 'auto',
 			'choices'   => array(

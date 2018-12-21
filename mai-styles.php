@@ -241,10 +241,10 @@ final class Mai_Styles {
 		include_once 'configs/header.php';
 
 		// Content.
-		include_once 'configs/content.php';
+		// include_once 'configs/content.php';
 
 		// Footer.
-		include_once 'configs/footer.php';
+		// include_once 'configs/footer.php';
 
 		// WooCommerce.
 		include_once 'configs/woocommerce.php';

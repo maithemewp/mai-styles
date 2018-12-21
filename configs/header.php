@@ -16,15 +16,15 @@ Kirki::add_section( $section, array(
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
 	'settings'  => 'header_before_color',
-	'label'     => __( 'Before Header', 'mai-colors' ),
+	'label'     => __( 'Before Header', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => '',
 	'choices'   => array(
-		'bg'               => esc_attr__( 'Background', 'mai-colors' ),
-		'color'            => esc_attr__( 'Text Color', 'mai-colors' ),
-		'link_color'       => esc_attr__( 'Link Color', 'mai-colors' ),
-		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-colors' ),
+		'bg'               => esc_attr__( 'Background', 'mai-styles' ),
+		'color'            => esc_attr__( 'Text Color', 'mai-styles' ),
+		'link_color'       => esc_attr__( 'Link Color', 'mai-styles' ),
+		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
 
 	),
 	'default' => array(
@@ -66,13 +66,13 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
 	'settings'  => 'site_header_color',
-	'label'     => __( 'Site Header', 'mai-colors' ),
+	'label'     => __( 'Site Header', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => '',
 	'choices'   => array(
-		'bg'        => esc_attr__( 'Background', 'mai-colors' ),
-		// 'bg_scroll' => esc_attr__( 'Scrolled Background', 'mai-colors' ),
+		'bg'        => esc_attr__( 'Background', 'mai-styles' ),
+		// 'bg_scroll' => esc_attr__( 'Scrolled Background', 'mai-styles' ),
 
 	),
 	'default' => array(
@@ -99,12 +99,12 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
 	'settings'  => 'site_title_color',
-	'label'     => __( 'Site Title', 'mai-colors' ),
+	'label'     => __( 'Site Title', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => '',
 	'choices'   => array(
-		'color' => esc_attr__( 'Color', 'mai-colors' ),
+		'color' => esc_attr__( 'Color', 'mai-styles' ),
 	),
 	'default' => array(
 		'color' => '',
@@ -124,10 +124,33 @@ Kirki::add_field( $config_id, array(
 /**
  * Header Menu.
  */
-$settings = new Mai_Styles_Menu( $config_id, $section, 'header' );
+$header_menu = new Mai_Styles_Menu( $config_id, $section, 'header' );
 
+// Color.
+// $header_menu->get_color_config();
+
+// Submenu Color.
+// $header_menu->get_submenu_color_config();
+
+// Typography.
+// $header_menu->get_typography_config();
+
+// Submenu Typography.
+// $header_menu->get_submenu_typography_config();
 
 /**
  * Primary Menu.
  */
-$settings = new Mai_Styles_Menu( $config_id, $section, 'primary' );
+$primary_menu = new Mai_Styles_Menu( $config_id, $section, 'primary' );
+
+// Color.
+// $primary_menu->get_color_config();
+
+// Submenu Color.
+// $primary_menu->get_submenu_color_config();
+
+// Typography.
+// $primary_menu->get_typography_config();
+
+// Submenu Typography.
+// $primary_menu->get_submenu_typography_config();
