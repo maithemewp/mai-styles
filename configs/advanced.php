@@ -1,7 +1,10 @@
 <?php
 
-$section    = 'maistyles_advanced';
-$navigation = new Mai_Styles_Navigation( $section );
+$section = 'maistyles_advanced';
+
+$header_nav    = new Mai_Styles_Nav( $section, 'header' );
+$primary_nav   = new Mai_Styles_Nav( $section, 'primary' );
+$secondary_nav = new Mai_Styles_Nav( $section, 'secondary' );
 
 /* ******* *
  * Advanced *
@@ -116,64 +119,44 @@ Kirki::add_field( $config_id, array(
 ) );
 
 /**
- * Header Nav.
- */
-Kirki::add_field( $config_id, $navigation->get_config( __( 'Header Nav', 'mai-styles' ), 'header_nav_color', '.nav-header', $navigation->has_menu( 'header' ) ) );
-
-/**
  * Header Nav Typography.
  */
-Kirki::add_field( $config_id, $navigation->get_typography_config( 'header_nav_typography', '.nav-header', $navigation->has_menu( 'header' ) ) );
+Kirki::add_field( $config_id, $header_nav->get_typography_config( __( 'Header Nav', 'mai-styles' ) ) );
+
+/**
+ * Header Nav.
+ */
+Kirki::add_field( $config_id, $header_nav->get_config() );
 
 /**
  * Header Nav Submenu.
  */
-Kirki::add_field( $config_id, $navigation->get_submenu_config( __( 'Header Nav Submenu', 'mai-styles' ), 'header_nav_submenu_color', '.nav-header', $navigation->has_submenu( 'header' ) ) );
+Kirki::add_field( $config_id, $header_nav->get_submenu_config( __( 'Header Nav Submenu', 'mai-styles' ) ) );
 
 /**
  * Header Nav Submenu Typography.
  */
-Kirki::add_field( $config_id, $navigation->get_submenu_typography_config( 'header_nav_submenu_typography', '.nav-header', $navigation->has_submenu( 'header' ) ) );
-
-/**
- * Header Nav Highlight.
- */
-Kirki::add_field( $config_id, $navigation->get_highlight_config( __( 'Header Nav Highlight', 'mai-styles' ), 'header_nav_highlight_color', '.nav-header', $navigation->has_highlight( 'header' ) ) );
-
-/**
- * Primary Nav Search.
- */
-Kirki::add_field( $config_id, $navigation->get_search_config( __( 'Header Nav Search', 'mai-styles' ), 'header_nav_search_color', '.nav-header', $navigation->has_search( 'header' ) ) );
-
-/**
- * Primary Nav.
- */
-Kirki::add_field( $config_id, $navigation->get_config( __( 'Primary Nav', 'mai-styles' ), 'primary_nav_color', '.nav-primary', $navigation->has_menu( 'primary' ) ) );
+Kirki::add_field( $config_id, $header_nav->get_submenu_typography_config() );
 
 /**
  * Primary Nav Typography.
  */
-Kirki::add_field( $config_id, $navigation->get_typography_config( 'primary_nav_typography', '.nav-primary', $navigation->has_menu( 'primary' ) ) );
+Kirki::add_field( $config_id, $primary_nav->get_typography_config( __( 'Primary Nav', 'mai-styles' ) ) );
+
+/**
+ * Primary Nav.
+ */
+Kirki::add_field( $config_id, $primary_nav->get_config() );
 
 /**
  * Primary Nav Submenu.
  */
-Kirki::add_field( $config_id, $navigation->get_submenu_config( __( 'Primary Nav Submenu', 'mai-styles' ), 'primary_nav_submenu_color', '.nav-primary', $navigation->has_submenu( 'primary' ) ) );
+Kirki::add_field( $config_id, $primary_nav->get_submenu_config( __( 'Primary Nav Submenu', 'mai-styles' ) ) );
 
 /**
  * Primary Nav Submenu Typography.
  */
-Kirki::add_field( $config_id, $navigation->get_submenu_typography_config( 'primary_nav_submenu_typography', '.nav-primary', $navigation->has_submenu( 'primary' ) ) );
-
-/**
- * Primary Nav Highlight.
- */
-Kirki::add_field( $config_id, $navigation->get_highlight_config( __( 'Primary Nav Highlight', 'mai-styles' ), 'primary_nav_highlight_color', '.nav-primary', $navigation->has_highlight( 'primary' ) ) );
-
-/**
- * Primary Nav Search.
- */
-Kirki::add_field( $config_id, $navigation->get_search_config( __( 'Primary Nav Search', 'mai-styles' ), 'primary_nav_search_color', '.nav-primary', $navigation->has_search( 'primary' ) ) );
+Kirki::add_field( $config_id, $primary_nav->get_submenu_typography_config() );
 
 /**
  * Site Container.
@@ -481,34 +464,24 @@ Kirki::add_field( $config_id, array(
 ) );
 
 /**
- * Secondary Nav.
- */
-Kirki::add_field( $config_id, $navigation->get_config( __( 'Footer Nav', 'mai-styles' ), 'secondary_nav_color', '.nav-secondary', $navigation->has_menu( 'secondary' ) ) );
-
-/**
  * Secondary Nav Typography.
  */
-Kirki::add_field( $config_id, $navigation->get_typography_config( 'secondary_nav_typography', '.nav-secondary', $navigation->has_menu( 'secondary' ) ) );
+Kirki::add_field( $config_id, $secondary_nav->get_typography_config( __( 'Secondary Nav', 'mai-styles' ) ) );
+
+/**
+ * Secondary Nav.
+ */
+Kirki::add_field( $config_id, $secondary_nav->get_config() );
 
 /**
  * Secondary Nav Submenu.
  */
-Kirki::add_field( $config_id, $navigation->get_submenu_config( __( 'Footer Nav Submenu', 'mai-styles' ), 'secondary_nav_submenu_color', '.nav-secondary', $navigation->has_submenu( 'secondary' ) ) );
+Kirki::add_field( $config_id, $secondary_nav->get_submenu_config( __( 'Footer Nav Submenu', 'mai-styles' ) ) );
 
 /**
  * Secondary Nav Submenu Typography.
  */
-Kirki::add_field( $config_id, $navigation->get_submenu_typography_config( 'secondary_nav_submenu_typography', '.nav-secondary', $navigation->has_submenu( 'secondary' ) ) );
-
-/**
- * Secondary Nav Highlight.
- */
-Kirki::add_field( $config_id, $navigation->get_highlight_config( __( 'Footer Nav Highlight', 'mai-styles' ), 'secondary_nav_highlight_color', '.nav-secondary', $navigation->has_highlight( 'secondary' ) ) );
-
-/**
- * Secondary Nav Search.
- */
-Kirki::add_field( $config_id, $navigation->get_search_config( __( 'Footer Nav Search', 'mai-styles' ), 'secondary_nav_search_color', '.nav-secondary', $navigation->has_search( 'secondary' ) ) );
+Kirki::add_field( $config_id, $secondary_nav->get_submenu_typography_config() );
 
 /**
  * Footer Widgets.

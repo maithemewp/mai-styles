@@ -156,7 +156,7 @@ final class Mai_Styles {
 		 * Sorry for the extra code just for me ¯\_(ツ)_/¯
 		 */
 		$url = Kirki::$url;
-		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/' ) ) {
+		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/mai-styles/' ) ) {
 			add_filter( 'kirki_config', function( $config ) use ( $url ) {
 				$url_path = isset( $config['url_path'] ) ? $config['url_path']: $url;
 				$new_url  = str_replace( '/Users/JiveDig/Plugins/mai-styles/', MAI_STYLES_PLUGIN_URL, $url_path );
@@ -241,6 +241,8 @@ final class Mai_Styles {
 	 * @return  void
 	 */
 	function login_styles() {
+
+		return;
 
 		$logo_id = get_theme_mod( 'custom_logo' );
 
