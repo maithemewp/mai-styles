@@ -1,16 +1,12 @@
 <?php
 
-$section = 'maistyles_advanced';
+$section = 'maistyles_structure';
 
-$header_nav    = new Mai_Styles_Nav( $section, 'header' );
-$primary_nav   = new Mai_Styles_Nav( $section, 'primary' );
-$secondary_nav = new Mai_Styles_Nav( $section, 'secondary' );
-
-/* ******* *
- * Advanced *
- * ******* */
+/* ********* *
+ * Structure *
+ * ********* */
 Kirki::add_section( $section, array(
-	'title' => esc_attr__( 'Advanced', 'mai-styles' ),
+	'title' => esc_attr__( 'Structure', 'mai-styles' ),
 	'panel' => $panel_id,
 ) );
 
@@ -117,46 +113,6 @@ Kirki::add_field( $config_id, array(
 		return ! has_custom_logo();
 	}
 ) );
-
-/**
- * Header Nav Typography.
- */
-Kirki::add_field( $config_id, $header_nav->get_typography_config( __( 'Header Nav', 'mai-styles' ) ) );
-
-/**
- * Header Nav.
- */
-Kirki::add_field( $config_id, $header_nav->get_config() );
-
-/**
- * Header Nav Submenu.
- */
-Kirki::add_field( $config_id, $header_nav->get_submenu_config( __( 'Header Nav Submenu', 'mai-styles' ) ) );
-
-/**
- * Header Nav Submenu Typography.
- */
-Kirki::add_field( $config_id, $header_nav->get_submenu_typography_config() );
-
-/**
- * Primary Nav Typography.
- */
-Kirki::add_field( $config_id, $primary_nav->get_typography_config( __( 'Primary Nav', 'mai-styles' ) ) );
-
-/**
- * Primary Nav.
- */
-Kirki::add_field( $config_id, $primary_nav->get_config() );
-
-/**
- * Primary Nav Submenu.
- */
-Kirki::add_field( $config_id, $primary_nav->get_submenu_config( __( 'Primary Nav Submenu', 'mai-styles' ) ) );
-
-/**
- * Primary Nav Submenu Typography.
- */
-Kirki::add_field( $config_id, $primary_nav->get_submenu_typography_config() );
 
 /**
  * Site Container.
@@ -464,26 +420,6 @@ Kirki::add_field( $config_id, array(
 ) );
 
 /**
- * Secondary Nav Typography.
- */
-Kirki::add_field( $config_id, $secondary_nav->get_typography_config( __( 'Secondary Nav', 'mai-styles' ) ) );
-
-/**
- * Secondary Nav.
- */
-Kirki::add_field( $config_id, $secondary_nav->get_config() );
-
-/**
- * Secondary Nav Submenu.
- */
-Kirki::add_field( $config_id, $secondary_nav->get_submenu_config( __( 'Footer Nav Submenu', 'mai-styles' ) ) );
-
-/**
- * Secondary Nav Submenu Typography.
- */
-Kirki::add_field( $config_id, $secondary_nav->get_submenu_typography_config() );
-
-/**
  * Footer Widgets.
  */
 Kirki::add_field( $config_id, array(
@@ -535,7 +471,7 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 	'active_callback' => function() {
-		return ( genesis_get_option( 'footer_widget_count' ) > 0 );
+		return ( genesis_get_option( 'footer_widget_count' ) > 0 ) && is_active_sidebar( 'footer-1' );
 	}
 ) );
 

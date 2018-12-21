@@ -145,12 +145,21 @@ final class Mai_Styles {
 	 * @return  void
 	 */
 	public function setup() {
+
 		// Updater.
 		add_action( 'plugins_loaded', array( $this, 'updater' ) );
+
 		// Bail if no Kirki.
 		if ( ! class_exists( 'Kirki' ) ) {
 			return;
 		}
+
+		add_filter( 'kirki_config', function( $config ) {
+			return wp_parse_args( array(
+				'disable_loader' => true,
+			), $config );
+		});
+
 		/**
 		 * This allows Kirki to run in a symlinked plugin on my computer.
 		 * Sorry for the extra code just for me ¯\_(ツ)_/¯
@@ -164,6 +173,7 @@ final class Mai_Styles {
 				return $config;
 			});
 		}
+
 		// Hooks.
 		add_action( 'init',       array( $this, 'settings' ) );
 		add_action( 'login_head', array( $this, 'login_styles' ) );
@@ -213,9 +223,8 @@ final class Mai_Styles {
 		 * Mai Styles
 		 */
 		Kirki::add_panel( $panel_id, array(
-			'title'       => esc_attr__( 'Mai Styles', 'mai-styles' ),
-			// 'description' => esc_attr__( '', 'mai-styles' ),
-			'priority'    => 55,
+			'title'    => esc_attr__( 'Mai Styles', 'mai-styles' ),
+			'priority' => 55,
 		) );
 
 		// General.
@@ -224,13 +233,12 @@ final class Mai_Styles {
 		// Navigation.
 		include_once 'configs/navigation.php';
 
-		// Advanced.
-		include_once 'configs/advanced.php';
+		// Structure.
+		include_once 'configs/structure.php';
 
 		// WooCommerce.
-		if ( class_exists( 'WooCommerce' ) ) {
-			include_once 'configs/woocommerce.php';
-		}
+		include_once 'configs/woocommerce.php';
+
 	}
 
 	/**

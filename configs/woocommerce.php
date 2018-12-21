@@ -8,6 +8,9 @@ $section = 'maicolors_woocommerce';
 Kirki::add_section( $section, array(
 	'title' => esc_attr__( 'WooCommerce', 'mai-colors' ),
 	'panel' => $panel_id,
+	'active_callback' => function() {
+		return class_exists( 'WooCommerce' );
+	}
 ) );
 
 /**

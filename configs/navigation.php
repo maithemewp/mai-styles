@@ -1,69 +1,70 @@
 <?php
 
+/* ***** *
+ * Menus *
+ * ***** */
+$menus = array(
+	'header'    => __( 'Header Menu', 'mai-styles' ),
+	'primary'   => __( 'Primary Menu', 'mai-styles' ),
+	'secondary' => __( 'Footer Menu', 'mai-styles' ),
+);
+foreach ( $menus as $menu_name => $label ) {
+	$settings = new Mai_Styles_Menu( $config_id, $panel_id, $menu_name, $label );
+}
+
 /**
  * Setup the menus customizer settings.
  *
- * @since   0.1.0
+ * @since  0.1.0
  */
-class Mai_Styles_Nav {
+class Mai_Styles_Menu {
 
-	protected $section;
 	protected $menu_name;
+	protected $section;
 	protected $class;
 	protected $has_menu;
 	protected $has_submenu;
 	protected $has_highlight;
 	protected $has_search;
 
-	function __construct( $section, $menu_name ) {
-		$this->section       = $section;
+	function __construct( $config_id, $panel_id, $menu_name, $label ) {
+
+		$this->config_id     = $config_id;
 		$this->menu_name     = $menu_name;
+		$this->section       = sprintf( 'maistyles_%s_menu', $this->menu_name );
 		$this->class         = sprintf( '.nav-%s', $this->menu_name );
 		$this->has_menu      = $this->has_menu( $this->menu_name );
 		$this->has_submenu   = $this->has_submenu( $this->menu_name );
 		$this->has_highlight = $this->has_highlight( $this->menu_name );
 		$this->has_search    = $this->has_search( $this->menu_name );
-	}
 
-	/**
-	 * Get the config for menu typography.
-	 *
-	 * @since   0.1.0
-	 *
-	 * @return  array  The kirki config.
-	 */
-	function get_typography_config( $label = '' ) {
+		/* **** *
+		 * Menu *
+		 * **** */
+		Kirki::add_section( $this->section, array(
+			'title' => $label,
+			'panel' => $panel_id,
+		) );
 
-		return array(
-			'type'      => 'typography',
-			'settings'  => sprintf( '%s_nav_typography', $this->menu_name ),
-			'label'     => $label,
-			'section'   => $this->section,
-			'transport' => 'auto',
-			'choices'   => array(
-				'fonts' => array(
-					'google' => array( 'popularity', 30 ),
-				),
-			),
-			'default'   => array(
-				'font-family'    => '',
-				'font-size'      => '',
-				'variant'        => '',
-				'letter-spacing' => '',
-				'text-transform' => '',
-			),
-			'output' => array(
-				array(
-					'element' => array(
-						"{$this->class} a",
-						"{$this->class} .menu-item.highlight > a",
-					),
-				),
-			),
-			'active_callback' => function() {
-				return $this->has_menu;
-			},
-		);
+		/**
+		 * Colors
+		 */
+		Kirki::add_field( $this->config_id, $this->get_config( __( 'Colors', 'mai-styles' ) ) );
+
+		/**
+		 * Submenu Colors.
+		 */
+		Kirki::add_field( $this->config_id, $this->get_submenu_config( __( 'Submenu Colors', 'mai-styles' ) ) );
+
+		/**
+		 * Typography.
+		 */
+		Kirki::add_field( $this->config_id, $this->get_typography_config( __( 'Typography', 'mai-styles' ) ) );
+
+		/**
+		 * Submenu Typography.
+		 */
+		Kirki::add_field( $this->config_id, $this->get_submenu_typography_config( __( 'Submenu Typography', 'mai-styles' ) ) );
 	}
 
 	/**
@@ -110,6 +111,13 @@ class Mai_Styles_Nav {
 		return $config;
 	}
 
+	/**
+	 * Get the config choices array.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  The choices config.
+	 */
 	function get_config_choices() {
 		$choices = array(
 			'menu_bg'            => esc_attr__( 'Background', 'mai-styles' ),
@@ -135,6 +143,13 @@ class Mai_Styles_Nav {
 		return $choices;
 	}
 
+	/**
+	 * Get the config defaults array.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  The defaults config.
+	 */
 	function get_config_defaults() {
 		$defaults = array(
 			'menu_bg'            => '',
@@ -160,6 +175,13 @@ class Mai_Styles_Nav {
 		return $defaults;
 	}
 
+	/**
+	 * Get the config output array.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  The output config.
+	 */
 	function get_config_output() {
 		$output = array(
 			array(
@@ -380,9 +402,50 @@ class Mai_Styles_Nav {
 					),
 				),
 			),
-			// 'active_callback' => function() {
-				// return $this->has_submenu( $this->menu_name );
-			// },
+			'active_callback' => function() {
+				return $this->has_submenu;
+			},
+		);
+	}
+
+	/**
+	 * Get the config for menu typography.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  The kirki config.
+	 */
+	function get_typography_config( $label = '' ) {
+
+		return array(
+			'type'      => 'typography',
+			'settings'  => sprintf( '%s_nav_typography', $this->menu_name ),
+			'label'     => $label,
+			'section'   => $this->section,
+			'transport' => 'auto',
+			'choices'   => array(
+				'fonts' => array(
+					'google' => array( 'popularity', 30 ),
+				),
+			),
+			'default'   => array(
+				'font-family'    => '',
+				'font-size'      => '',
+				'variant'        => '',
+				'letter-spacing' => '',
+				'text-transform' => '',
+			),
+			'output' => array(
+				array(
+					'element' => array(
+						"{$this->class} a",
+						"{$this->class} .menu-item.highlight > a",
+					),
+				),
+			),
+			'active_callback' => function() {
+				return $this->has_menu;
+			},
 		);
 	}
 
@@ -458,7 +521,7 @@ class Mai_Styles_Nav {
 		// Loop thru em.
 		foreach ( $menu_items as $item ) {
 			// If we have a child menu item.
-			if ( $item->post_parent > 0 ) {
+			if ( $item->menu_item_parent > 0 ) {
 				return true;
 				continue;
 			}
@@ -527,10 +590,31 @@ class Mai_Styles_Nav {
 		return false;
 	}
 
+	/**
+	 * Get menu items, from cache or new query.
+	 *
+	 * @since   0.1.0
+	 *
+	 * @return  array  Menu items.
+	 */
 	function get_menu_items( $menu_name ) {
 
+		// Setup caches.
+		static $menu_items_cache = array();
+		static $locations_cache  = array();
+
+		// If cached, return it.
+		if ( isset( $menu_items_cache[ $menu_name ] ) ) {
+			return $menu_items_cache[ $menu_name ];
+		}
+
+		// Maybe cache locations.
+		if ( empty( $locations_cache ) ) {
+			$locations_cache = get_nav_menu_locations();
+		}
+
 		$menu_items = array();
-		$locations  = get_nav_menu_locations();
+		$locations  = $locations_cache;
 		$menus      = ( 'header' === $menu_name ) ? array( 'header_left', 'header_right' ) : array( $menu_name );
 
 		foreach ( $menus as $menu ) {
@@ -549,44 +633,10 @@ class Mai_Styles_Nav {
 			$menu_items = array_merge( $menu_items, $items );
 		}
 
-		return $menu_items;
-	}
-
-	/**
-	 * Get menu items, from cache or new query.
-	 *
-	 * @since   0.1.0
-	 *
-	 * @return  array  Menu items.
-	 */
-	function get_menu_items_old( $menu_name ) {
-
-		// Setup caches.
-		static $menu_items_cache = array();
-		static $locations_cache  = array();
-
-		// If cached, return it.
-		if ( isset( $menu_items_cache[ $menu_name ] ) ) {
-			return $menu_items_cache[ $menu_name ];
-		}
-
-		// Maybe cache locations.
-		if ( empty( $locations_cache ) ) {
-			$locations_cache = get_nav_menu_locations();
-		}
-
-		// Bail if menu doesn't exist.
-		if ( ! isset( $locations_cache[ $menu_name ] ) ) {
-			return;
-		}
-
-		// Get menu items.
-		$menu_items = wp_get_nav_menu_items( wp_get_nav_menu_object( $locations_cache[ $menu_name ] ) );
-
-		// Add cache.
+		// Add to cache.
 		$menu_items_cache[ $menu_name ] = $menu_items;
 
-		return $menu_items_cache[ $menu_name ];
+		return $menu_items;
 	}
 
 }
