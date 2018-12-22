@@ -178,7 +178,7 @@ final class Mai_Styles {
 		}
 
 		// Hooks.
-		add_action( 'init',       array( $this, 'settings' ) );
+		add_action( 'init',       array( $this, 'kirki_settings' ) );
 		add_action( 'login_head', array( $this, 'login_styles' ) );
 	}
 
@@ -205,7 +205,7 @@ final class Mai_Styles {
 	 * @since   0.1.0
 	 * @return  void
 	 */
-	function settings() {
+	function kirki_settings() {
 
 		$config_id      = 'mai_styles';
 		$panel_id       = 'mai_styles';
