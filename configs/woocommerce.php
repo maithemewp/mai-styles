@@ -334,7 +334,7 @@ Kirki::add_field( $config_id, array(
  */
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
-	'settings'  => 'woocommerce_notices',
+	'settings'  => 'woocommerce_notice',
 	'label'     => esc_attr__( 'Notices', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',
