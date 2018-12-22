@@ -260,8 +260,6 @@ final class Mai_Styles {
 	 */
 	function login_styles() {
 
-		return;
-
 		$logo_id = get_theme_mod( 'custom_logo' );
 
 		// Bail if we don't have a custom logo.
@@ -276,8 +274,8 @@ final class Mai_Styles {
 			return;
 		}
 
-		$header_bg    = isset( $colors['site_header']['bg'] ) ? sanitize_hex_color( $colors['site_header']['bg'] ) : false;
-		$header_color = isset( $colors['header_nav_color']['item_color'] ) ? sanitize_hex_color( $colors['header_nav_color']['item_color'] ) : false;
+		$header_bg    = isset( $colors['site_header_color']['bg'] ) ? esc_attr( $colors['site_header_color']['bg'] ) : false;
+		$header_color = isset( $colors['header_nav_color']['item_color'] ) ? esc_attr( $colors['header_nav_color']['item_color'] ) : false;
 
 		// Bail if no header background color.
 		if ( ! $header_bg ) {
@@ -286,7 +284,7 @@ final class Mai_Styles {
 
 		echo '<style>';
 			echo 'body {';
-				printf( 'background: %s;', sanitize_hex_color( $header_bg ) );
+				printf( 'background: %s;', $header_bg );
 				$header_color ? printf( 'color: %s;', $header_color ) : '';
 			echo '}';
 			if ( $header_color ) {
