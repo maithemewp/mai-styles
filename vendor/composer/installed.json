@@ -1,17 +1,17 @@
 [
     {
         "name": "aristath/kirki",
-        "version": "v3.0.35.2",
-        "version_normalized": "3.0.35.2",
+        "version": "v3.0.35.3",
+        "version_normalized": "3.0.35.3",
         "source": {
             "type": "git",
             "url": "https://github.com/aristath/kirki.git",
-            "reference": "6f664660d136b4491ab77712e7f682b01cddeb2a"
+            "reference": "d1b56d190e9ecaedda9c69abfea2a82baf47f15b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aristath/kirki/zipball/6f664660d136b4491ab77712e7f682b01cddeb2a",
-            "reference": "6f664660d136b4491ab77712e7f682b01cddeb2a",
+            "url": "https://api.github.com/repos/aristath/kirki/zipball/d1b56d190e9ecaedda9c69abfea2a82baf47f15b",
+            "reference": "d1b56d190e9ecaedda9c69abfea2a82baf47f15b",
             "shasum": ""
         },
         "require": {
@@ -26,7 +26,7 @@
             "phpunit/phpunit": "*",
             "wp-coding-standards/wpcs": "*"
         },
-        "time": "2018-12-07T22:54:35+00:00",
+        "time": "2018-12-26T17:29:12+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

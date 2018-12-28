@@ -8,6 +8,9 @@ $section = 'maicolors_woocommerce';
 Kirki::add_section( $section, array(
 	'title' => esc_attr__( 'WooCommerce', 'mai-colors' ),
 	'panel' => $panel_id,
+	'active_callback' => function() {
+		return class_exists( 'WooCommerce' );
+	}
 ) );
 
 /**
@@ -331,7 +334,7 @@ Kirki::add_field( $config_id, array(
  */
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
-	'settings'  => 'woocommerce_notices',
+	'settings'  => 'woocommerce_notice',
 	'label'     => esc_attr__( 'Notices', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',

@@ -14,6 +14,7 @@ Kirki::add_section( $section, array(
  * Body.
  */
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Body Color', 'mai-styles' ),
 	'label'     => esc_attr__( 'Body', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'body_color',
@@ -55,7 +56,9 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 ) );
+
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Body Typography', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'body_typography',
 	'section'   => $section,
@@ -74,7 +77,10 @@ Kirki::add_field( $config_id, array(
 	),
 	'output' => array(
 		array(
-			'element' => array( 'body', 'body.text-md' ),
+			'element' => array(
+				'body',
+				'body.text-md',
+			),
 		),
 	),
 ) );
@@ -83,7 +89,8 @@ Kirki::add_field( $config_id, array(
  * Headings.
  */
 Kirki::add_field( $config_id, array(
-	'label'     => esc_attr__( 'Headings', 'mai-styles' ),
+	// 'label'     => esc_attr__( 'Heading Color', 'mai-styles' ),
+	'label'     => esc_attr__( 'Heading', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'heading_color',
 	'section'   => $section,
@@ -113,7 +120,9 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 ) );
+
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Heading Typography', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'heading_typography',
 	'section'   => $section,
@@ -149,9 +158,37 @@ Kirki::add_field( $config_id, array(
  * Banner Title.
  */
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Banner Title Color', 'mai-styles' ),
 	'label'     => esc_attr__( 'Banner Title', 'mai-styles' ),
+	'type'      => 'multicolor',
+	'settings'  => 'banner_title_color',
+	'section'   => $section,
+	'transport' => 'auto',
+	'default'   => '',
+	'choices'   => array(
+		'color' => esc_attr__( 'Color', 'mai-styles' ),
+	),
+	'default' => array(
+		'color' => '',
+	),
+	'output' => array(
+		array(
+			'choice'   => 'color',
+			'property' => 'color',
+			'element'  => array(
+				'.banner-title',
+			),
+		),
+	),
+	'active_callback' => function() {
+		return ( function_exists( 'mai_is_banner_area_enabled_globally' ) && mai_is_banner_area_enabled_globally() );
+	}
+) );
+
+Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Banner Title Typography', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'banner_title',
+	'settings'  => 'banner_title_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
@@ -165,7 +202,7 @@ Kirki::add_field( $config_id, array(
 		'variant'        => '',
 		'letter-spacing' => '',
 		'text-transform' => '',
-		'color'          => '',
+		// 'color'          => '',
 	),
 	'output' => array(
 		array(
@@ -183,9 +220,37 @@ Kirki::add_field( $config_id, array(
  * h1.
  */
 Kirki::add_field( $config_id, array(
-	'label'     => esc_attr__( 'Heading 1', 'mai-styles' ),
+	// 'label'     => esc_attr__( 'Entry Title Color', 'mai-styles' ),
+	'label'     => esc_attr__( 'Entry Title', 'mai-styles' ),
+	'type'      => 'multicolor',
+	'settings'  => 'entry_title_color',
+	'section'   => $section,
+	'transport' => 'auto',
+	'choices'   => array(
+		'color' => esc_attr__( 'Color', 'mai-styles' ),
+	),
+	'default' => array(
+		'color' => '',
+	),
+	'output' => array(
+		array(
+			'choice'   => 'color',
+			'property' => 'color',
+			'element'  => array(
+				'h1',
+				'h1.entry-title',
+			),
+		),
+	),
+) );
+
+/**
+ * h1.
+ */
+Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Entry Title Typography', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'h1',
+	'settings'  => 'h1_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
@@ -199,7 +264,7 @@ Kirki::add_field( $config_id, array(
 		'variant'        => '',
 		'letter-spacing' => '',
 		'text-transform' => '',
-		'color'          => '',
+		// 'color'          => '',
 	),
 	'output' => array(
 		array(
@@ -217,7 +282,7 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'label'     => esc_attr__( 'Heading 2', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'h2',
+	'settings'  => 'h2_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => array(
@@ -236,7 +301,7 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'label'     => esc_attr__( 'Heading 3', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'h3',
+	'settings'  => 'h3_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => array(
@@ -255,7 +320,7 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'label'     => esc_attr__( 'Heading 4', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'h4',
+	'settings'  => 'h4_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => array(
@@ -274,7 +339,7 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'label'     => esc_attr__( 'Heading 5', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'h5',
+	'settings'  => 'h5_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => array(
@@ -293,7 +358,7 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'label'     => esc_attr__( 'Heading 6', 'mai-styles' ),
 	'type'      => 'typography',
-	'settings'  => 'h6',
+	'settings'  => 'h6_typography',
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => array(
@@ -307,12 +372,13 @@ Kirki::add_field( $config_id, array(
 ) );
 
 /**
- * Buttons (Primary).
+ * Button (Primary).
  */
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Button Color (Primary)', 'mai-styles' ),
+	'label'     => esc_attr__( 'Button (Primary)', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'button',
-	'label'     => esc_attr__( 'Buttons (Primary)', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
@@ -487,7 +553,9 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 ) );
+
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Button Typography (Primary)', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'button_typography',
 	'section'   => $section,
@@ -522,9 +590,10 @@ Kirki::add_field( $config_id, array(
  * Buttons (Alternate/Secondary).
  */
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Button Color (Alternate)', 'mai-styles' ),
+	'label'     => esc_attr__( 'Button (Alternate)', 'mai-styles' ),
 	'type'      => 'multicolor',
-	'settings'  => 'button_alt',
-	'label'     => esc_attr__( 'Buttons (Secondary/Alternate)', 'mai-styles' ),
+	'settings'  => 'button_alt_color',
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
@@ -626,7 +695,9 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 ) );
+
 Kirki::add_field( $config_id, array(
+	// 'label'     => esc_attr__( 'Button Typography (Alternate)', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'button_alt_typography',
 	'section'   => $section,
@@ -659,9 +730,9 @@ Kirki::add_field( $config_id, array(
  * Buttons (Border Radius).
  */
 Kirki::add_field( $config_id, array(
+	'label'       => esc_attr__( 'Button (Border Radius)', 'mai-styles' ),
 	'type'        => 'dimension',
 	'settings'    => 'button_border_radius',
-	'label'       => esc_attr__( 'Buttons (Border Radius)', 'mai-styles' ),
 	'section'     => $section,
 	'transport'   => 'auto',
 	'default'     => '',
