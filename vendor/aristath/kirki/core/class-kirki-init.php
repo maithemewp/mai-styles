@@ -64,11 +64,6 @@ class Kirki_Init {
 			Kirki::$url = $config['url_path'];
 		}
 
-		// // Needs to be:
-		// // https://sandbox.test/wp-content/plugins/mai-styles/vendor/aristath/kirki
-		// // Symlinked gets /Users/JiveDig/Plugins/mai-styles/vendor/aristath/kirki
-		// echo set_url_scheme( Kirki::$url ) . '<br />';
-
 		// Make sure the right protocol is used.
 		Kirki::$url = set_url_scheme( Kirki::$url );
 	}
