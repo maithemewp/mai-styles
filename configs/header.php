@@ -117,16 +117,16 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 	'active_callback' => function() {
-		return ! has_custom_logo();
+		return ! ( function_exists( 'has_custom_logo' ) || has_custom_logo() );
 	}
 ) );
 
 /**
  * Header Menu.
  */
-$header_menu = new Mai_Styles_Menu( $config_id, $section, 'header' );
+$header_menu = new Mai_Styles_Navigation( $config_id, $section, 'header' );
 
 /**
  * Primary Menu.
  */
-$primary_menu = new Mai_Styles_Menu( $config_id, $section, 'primary' );
+$primary_menu = new Mai_Styles_Navigation( $config_id, $section, 'primary' );

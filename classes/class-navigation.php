@@ -5,7 +5,7 @@
  *
  * @since  0.1.0
  */
-class Mai_Styles_Menu {
+class Mai_Styles_Navigation {
 
 	protected $menu_name;
 	protected $section;
@@ -73,7 +73,8 @@ class Mai_Styles_Menu {
 				'default'         => $this->get_header_scroll_defaults(),
 				'output'          => $this->get_header_scroll_output(),
 				'active_callback' => function() {
-					return maistyles_has_scroll_effects();
+					$header_style = genesis_get_option( 'header_style' );
+					return ! ( $header_style || in_array( $header_style, array( 'sticky', 'reveal', 'sticky_shrink', 'reveal_shrink' ) ) );
 				},
 			) );
 
@@ -401,6 +402,7 @@ class Mai_Styles_Menu {
 				'element'  => array(
 					"body.scroll .site-header",
 				),
+				'media_query' => '@media only screen and (min-width: 545px)',
 			)
 		);
 		if ( $this->has_menu ) {
@@ -416,6 +418,7 @@ class Mai_Styles_Menu {
 						"body.scroll.home {$this->class} .current-menu-item > a",
 						"body.scroll .mai-bars",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 				array(
 					'choice'   => 'item_hover_color',
@@ -434,6 +437,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
 						"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 				array(
 					'choice'   => 'item_current_color',
@@ -446,6 +450,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} .current-menu-ancestor > a:hover",
 						"body.scroll {$this->class} .current-menu-ancestor > a:focus",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 			) );
 		}
@@ -458,6 +463,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} .highlight > a",
 						"body.scroll {$this->class} .highlight.current-menu-item > a",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 				array(
 					'choice'   => 'button_color',
@@ -466,6 +472,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} .highlight > a",
 						"body.scroll {$this->class} .highlight.current-menu-item > a",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 				array(
 					'choice'   => 'button_hover_bg',
@@ -476,6 +483,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} .highlight.current-menu-item > a:hover",
 						"body.scroll {$this->class} .highlight.current-menu-item > a:focus",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 				array(
 					'choice'   => 'button_hover_color',
@@ -486,6 +494,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} .highlight.current-menu-item > a:hover",
 						"body.scroll {$this->class} .highlight.current-menu-item > a:focus",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 			) );
 		}
@@ -498,6 +507,7 @@ class Mai_Styles_Menu {
 						"body.scroll {$this->class} .nav-search:hover",
 						"body.scroll {$this->class} .nav-search:focus",
 					),
+					'media_query' => '@media only screen and (min-width: 545px)',
 				),
 			) );
 		}

@@ -101,9 +101,14 @@ final class Mai_Styles {
 			define( 'MAI_STYLES_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		}
 
-		// Plugin Includes Path.
+		// Plugin Classes Path.
 		if ( ! defined( 'MAI_STYLES_CLASSES_DIR' ) ) {
 			define( 'MAI_STYLES_CLASSES_DIR', MAI_STYLES_PLUGIN_DIR . 'classes/' );
+		}
+
+		// Plugin Includes Path.
+		if ( ! defined( 'MAI_STYLES_INCLUDES_DIR' ) ) {
+			define( 'MAI_STYLES_INCLUDES_DIR', MAI_STYLES_PLUGIN_DIR . 'includes/' );
 		}
 
 		// Plugin Folder URL.
@@ -137,6 +142,8 @@ final class Mai_Styles {
 		require_once __DIR__ . '/vendor/autoload.php';
 		// Classes.
 		foreach ( glob( MAI_STYLES_CLASSES_DIR . '*.php' ) as $file ) { include_once $file; }
+		// Includes.
+		foreach ( glob( MAI_STYLES_INCLUDES_DIR . '*.php' ) as $file ) { include_once $file; }
 	}
 
 	/**
@@ -180,6 +187,8 @@ final class Mai_Styles {
 		// Hooks.
 		add_action( 'init',       array( $this, 'kirki_settings' ) );
 		add_action( 'login_head', array( $this, 'login_styles' ) );
+
+		add_filter( 'body_class', array( $this, 'body_class' ) );
 	}
 
 	/**
@@ -306,6 +315,23 @@ final class Mai_Styles {
 		echo '</style>';
 	}
 
+	/**
+	 * Add custom body class.
+	 *
+	 * @param   array  The existing body classes.
+	 *
+	 * @return  array  Modified classes.
+	 */
+	function body_class( $classes ) {
+		if ( maistyles_has_scroll_colors() ) {
+			$classes[] = 'has-scroll-colors';
+		}
+		if ( maistyles_has_scroll_logo() ) {
+			$classes[] = 'has-scroll-logo';
+		}
+		return $classes;
+	}
+
 }
 
 /**
@@ -329,142 +355,3 @@ function Mai_Styles() {
 
 // Get Mai_Styles Running.
 Mai_Styles();
-
-add_action( 'customize_register', 'maistyles_register_customizer_scroll_logo_settings' );
-function maistyles_register_customizer_scroll_logo_settings( $wp_customize ) {
-
-	$wp_customize->add_setting(
-		'custom_scroll_logo',
-		array(
-			'theme_supports' => array( 'custom-logo' ),
-		)
-	);
-	$wp_customize->add_control(
-		new WP_Customize_Cropped_Image_Control(
-			$wp_customize,
-			'custom_scroll_logo',
-			array(
-				'label'         => __( 'Scroll Logo' ),
-				'section'       => 'title_tagline',
-				'priority'      => 9,
-				'height'        => '120',
-				'width'         => '240',
-				'flex_height'   => true,
-				'flex_width'    => true,
-				'button_labels' => array(
-					'select'       => __( 'Select logo', 'mai-styles' ),
-					'change'       => __( 'Change logo', 'mai-styles' ),
-					'remove'       => __( 'Remove', 'mai-styles' ),
-					'default'      => __( 'Default', 'mai-styles' ),
-					'placeholder'  => __( 'No logo selected', 'mai-styles' ),
-					'frame_title'  => __( 'Select logo', 'mai-styles' ),
-					'frame_button' => __( 'Choose logo', 'mai-styles' ),
-				),
-				'active_callback' => function() use ( $wp_customize ) {
-					return ( maistyles_has_scroll_effects() && ! empty( $wp_customize->get_setting( 'custom_logo' )->value() ) );
-				},
-			)
-		)
-	);
-
-	$wp_customize->add_setting(
-		'custom_scroll_logo_width',
-		array(
-			'theme_supports' => array( 'custom-logo' ),
-		)
-	);
-	$wp_customize->add_control( 'custom_scroll_logo_width', array(
-		'type'        => 'number',
-		'priority'    => 9,
-		'section'     => 'title_tagline',
-		'label'       => __( 'Scroll Logo Width (in px)', 'mai-styles' ),
-		'description' => '',
-		'input_attrs' => array(
-			'min'         => 0,
-			'step'        => 1,
-			'placeholder' => '180',
-		),
-		'active_callback' => function() use ( $wp_customize ) {
-			return ( maistyles_has_scroll_effects() && ! empty( $wp_customize->get_setting( 'custom_logo_width' )->value() ) );
-		},
-	));
-
-}
-
-/**
- * Add custom body class.
- *
- * @param   array  The existing body classes.
- *
- * @return  array  Modified classes.
- */
-add_filter( 'body_class', 'maistyles_has_scroll_logo_body_class' );
-function maistyles_has_scroll_logo_body_class( $classes ) {
-	if ( maistyles_has_scroll_effects() && get_theme_mod( 'custom_scroll_logo' ) ) {
-		$classes[] = 'has-scroll-logo';
-	}
-	return $classes;
-}
-
-/**
- * kirki/{$config_id}/styles
- */
-add_filter( 'kirki_mai_styles_styles', 'maistyles_kirki_styles' );
-function maistyles_kirki_styles( $css ) {
-
-	if ( ! maistyles_has_scroll_effects() ) {
-		return $css;
-	}
-
-	$logo_id = get_theme_mod( 'custom_scroll_logo' );
-
-	if ( ! $logo_id ) {
-		return $css;
-	}
-
-	$image = wp_get_attachment_image_src( $logo_id, 'full' );
-
-	if ( ! $image ) {
-		return $css;
-	}
-
-	$width = get_theme_mod( 'custom_scroll_logo_width' );
-
-	$url    = $image[0];
-	$width  = $width ? absint( $width ) : $image[1];
-
-	// TODO: Need math to get scaled height.
-
-	$css['global']['body.has-scroll-logo .custom-logo-link']['position'] = 'relative';
-	$css['global']['body.scroll .custom-logo-link']['max-width'] = sprintf( '%spx', $width );
-	$css['global']['.custom-logo-link:after']['content'] = '" "';
-	$css['global']['.custom-logo-link:after']['position'] = 'absolute';
-	$css['global']['.custom-logo-link:after']['top'] = '0';
-	$css['global']['.custom-logo-link:after']['bottom'] = '0';
-	$css['global']['.custom-logo-link:after']['left'] = '0';
-	$css['global']['.custom-logo-link:after']['right'] = '0';
-	$css['global']['.custom-logo-link:after']['background'] = sprintf( 'url( %s ) no-repeat', $url );
-	$css['global']['.site-header.has-header-left .custom-logo-link:after']['background-position'] = 'left center';
-	$css['global']['.site-header.has-header-right .custom-logo-link:after']['background-position'] = 'right center';
-	$css['global']['.site-header.has-header-left.has-header-right .custom-logo-link:after']['background-position'] = 'left center';
-	$css['global']['.custom-logo-link:after']['background-size'] = sprintf( 'auto %spx', $width );
-	$css['global']['.custom-logo-link:after']['opacity'] = '0';
-	$css['global']['body.scroll .custom-logo-link:after']['opacity'] = '1';
-	$css['global']['.custom-logo']['opacity'] = '1'; // img
-	$css['global']['body.scroll .custom-logo']['opacity'] = '0'; // img
-	$css['@media only screen and (min-width: 769px) {']['.site-header.has-header-left .custom-logo-link:after']['background-position'] = 'left center';
-	$css['@media only screen and (min-width: 769px) {']['.site-header.has-header-right .custom-logo-link:after']['background-position'] = 'right center';
-	$css['@media only screen and (min-width: 769px) {']['.site-header.has-header-left.has-header-right .custom-logo-link:after']['background-position'] = 'center center';
-	return $css;
-}
-
-function maistyles_has_scroll_effects() {
-	if ( function_exists( 'mai_has_scroll_effects' ) ) {
-		return mai_has_scroll_effects();
-	}
-	$header_style = genesis_get_option( 'header_style' );
-	if ( $header_style && in_array( $header_style, array( 'sticky', 'reveal', 'sticky_shrink', 'reveal_shrink' ) ) ) {
-		return true;
-	}
-	return false;
-}

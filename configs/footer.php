@@ -116,7 +116,7 @@ Kirki::add_field( $config_id, array(
 /**
  * Footer Menu.
  */
-$secondary_menu = new Mai_Styles_Menu( $config_id, $section, 'secondary' );
+$secondary_menu = new Mai_Styles_Navigation( $config_id, $section, 'secondary' );
 
 // Color.
 // $secondary_menu->get_color_config();
