@@ -69,18 +69,11 @@ class Mai_Styles_Menu {
 				'label'           => __( 'Header Scroll', 'mai-styles' ),
 				'section'         => $section,
 				'transport'       => 'auto',
-				'default'         => '',
 				'choices'         => $this->get_header_scroll_choices(),
 				'default'         => $this->get_header_scroll_defaults(),
 				'output'          => $this->get_header_scroll_output(),
 				'active_callback' => function() {
-					$header_style = genesis_get_option( 'header_style' );
-					if ( in_array( $header_style, array( 'sticky', 'reveal', 'sticky_shrink', 'reveal_shrink' ) ) ) {
-						if ( $this->has_menu ) {
-							return true;
-						}
-					}
-					return false;
+					return maistyles_has_scroll_effects();
 				},
 			) );
 
@@ -230,6 +223,7 @@ class Mai_Styles_Menu {
 				'choice'   => 'item_color',
 				'property' => 'color',
 				'element'  => array(
+					"{$this->class}",
 					"{$this->class} a",
 					"{$this->class} .nav-search",
 					"{$this->class} .sub-menu a",
@@ -346,21 +340,57 @@ class Mai_Styles_Menu {
 	}
 
 	function get_header_scroll_choices() {
-		return array(
-			'header_bg'          => esc_attr__( 'Header Background', 'mai-styles' ),
-			'item_color'         => esc_attr__( 'Item Color', 'mai-styles' ),
-			'item_hover_color'   => esc_attr__( 'Item Hover Color', 'mai-styles' ),
-			'item_current_color' => esc_attr__( 'Current Item Color', 'mai-styles' ),
+		$choices = array(
+			'header_bg' => esc_attr__( 'Header Background', 'mai-styles' ),
 		);
+		if ( $this->has_menu ) {
+			$choices = array_merge( $choices, array(
+				'item_color'         => esc_attr__( 'Item Color', 'mai-styles' ),
+				'item_hover_color'   => esc_attr__( 'Item Hover Color', 'mai-styles' ),
+				'item_current_color' => esc_attr__( 'Current Item Color', 'mai-styles' ),
+			) );
+		}
+		if ( $this->has_menu && $this->has_highlight ) {
+			$choices = array_merge( $choices, array(
+				'button_bg'          => esc_attr__( 'Highlight Button Background', 'mai-styles' ),
+				'button_color'       => esc_attr__( 'Highlight Button Color', 'mai-styles' ),
+				'button_hover_bg'    => esc_attr__( 'Highlight Button Hover Background', 'mai-styles' ),
+				'button_hover_color' => esc_attr__( 'Highlight Button Hover Color', 'mai-styles' ),
+			) );
+		}
+		if ( $this->has_menu && $this->has_search ) {
+			$choices = array_merge( $choices, array(
+				'search_hover_color' => esc_attr__( 'Search Hover Color', 'mai-styles' ),
+			) );
+		}
+		return $choices;
 	}
 
 	function get_header_scroll_defaults() {
-		return array(
-			'header_bg'          => '',
-			'item_color'         => '',
-			'item_hover_color'   => '',
-			'item_current_color' => '',
+		$defaults = array(
+			'header_bg' => '',
 		);
+		if ( $this->has_menu ) {
+			$defaults = array_merge( $defaults, array(
+				'item_color'         => '',
+				'item_hover_color'   => '',
+				'item_current_color' => '',
+			) );
+		}
+		if ( $this->has_menu && $this->has_highlight ) {
+			$defaults = array_merge( $defaults, array(
+				'button_bg'          => '',
+				'button_color'       => '',
+				'button_hover_bg'    => '',
+				'button_hover_color' => '',
+			) );
+		}
+		if ( $this->has_menu && $this->has_search ) {
+			$defaults = array_merge( $defaults, array(
+				'search_hover_color' => '',
+			) );
+		}
+		return $defaults;
 	}
 
 	function get_header_scroll_output() {
@@ -371,49 +401,55 @@ class Mai_Styles_Menu {
 				'element'  => array(
 					"body.scroll .site-header",
 				),
-			),
-			array(
-				'choice'   => 'item_color',
-				'property' => 'color',
-				'element'  => array(
-					"body.scroll {$this->class} a",
-					"body.scroll {$this->class} .nav-search",
-					"body.scroll {$this->class} .sub-menu a",
-					"body.scroll.home {$this->class} .current-menu-item > a",
-				),
-			),
-			array(
-				'choice'   => 'item_hover_color',
-				'property' => 'color',
-				'element'  => array(
-					"body.scroll {$this->class} a:hover",
-					"body.scroll {$this->class} a:focus",
-					"body.scroll {$this->class} .nav-search:hover",
-					"body.scroll {$this->class} .nav-search:focus",
-					"body.scroll {$this->class} .sub-menu a:hover",
-					"body.scroll {$this->class} .sub-menu a:focus",
-					"body.scroll {$this->class} > .current-menu-item > a",
-					"body.scroll {$this->class} > .current-menu-ancestor > a",
-					"body.scroll {$this->class} > .menu-item-has-children:not(.highlight):hover > a",
-					"body.scroll {$this->class} > .menu-item-has-children:not(.highlight):focus > a",
-					"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
-					"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
-				),
-			),
-			array(
-				'choice'   => 'item_current_color',
-				'property' => 'color',
-				'element'  => array(
-					"body.scroll {$this->class} .current-menu-item > a",
-					"body.scroll {$this->class} .current-menu-item > a:hover",
-					"body.scroll {$this->class} .current-menu-item > a:focus",
-					"body.scroll {$this->class} .current-menu-ancestor > a",
-					"body.scroll {$this->class} .current-menu-ancestor > a:hover",
-					"body.scroll {$this->class} .current-menu-ancestor > a:focus",
-				),
-			),
+			)
 		);
-		if ( $this->has_highlight ) {
+		if ( $this->has_menu ) {
+			$output = array_merge( $output, array(
+				array(
+					'choice'   => 'item_color',
+					'property' => 'color',
+					'element'  => array(
+						"body.scroll {$this->class}",
+						"body.scroll {$this->class} a",
+						"body.scroll {$this->class} .nav-search",
+						"body.scroll {$this->class} .sub-menu a",
+						"body.scroll.home {$this->class} .current-menu-item > a",
+						"body.scroll .mai-bars",
+					),
+				),
+				array(
+					'choice'   => 'item_hover_color',
+					'property' => 'color',
+					'element'  => array(
+						"body.scroll {$this->class} a:hover",
+						"body.scroll {$this->class} a:focus",
+						"body.scroll {$this->class} .nav-search:hover",
+						"body.scroll {$this->class} .nav-search:focus",
+						"body.scroll {$this->class} .sub-menu a:hover",
+						"body.scroll {$this->class} .sub-menu a:focus",
+						"body.scroll {$this->class} > .current-menu-item > a",
+						"body.scroll {$this->class} > .current-menu-ancestor > a",
+						"body.scroll {$this->class} > .menu-item-has-children:not(.highlight):hover > a",
+						"body.scroll {$this->class} > .menu-item-has-children:not(.highlight):focus > a",
+						"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
+						"body.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
+					),
+				),
+				array(
+					'choice'   => 'item_current_color',
+					'property' => 'color',
+					'element'  => array(
+						"body.scroll {$this->class} .current-menu-item > a",
+						"body.scroll {$this->class} .current-menu-item > a:hover",
+						"body.scroll {$this->class} .current-menu-item > a:focus",
+						"body.scroll {$this->class} .current-menu-ancestor > a",
+						"body.scroll {$this->class} .current-menu-ancestor > a:hover",
+						"body.scroll {$this->class} .current-menu-ancestor > a:focus",
+					),
+				),
+			) );
+		}
+		if ( $this->has_menu && $this->has_highlight ) {
 			$output = array_merge( $output, array(
 				array(
 					'choice'   => 'button_bg',
@@ -453,7 +489,7 @@ class Mai_Styles_Menu {
 				),
 			) );
 		}
-		if ( $this->has_search ) {
+		if ( $this->has_menu && $this->has_search ) {
 			$output = array_merge( $output, array(
 				array(
 					'choice'   => 'search_hover_color',

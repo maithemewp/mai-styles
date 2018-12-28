@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ef5dd3e76bafd3287d9d7a10025f077",
+    "content-hash": "54cb0e99416b4a04ff312c254d1c0610",
     "packages": [
         {
             "name": "aristath/kirki",
-            "version": "v3.0.35.2",
+            "version": "v3.0.35.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aristath/kirki.git",
-                "reference": "6f664660d136b4491ab77712e7f682b01cddeb2a"
+                "reference": "d1b56d190e9ecaedda9c69abfea2a82baf47f15b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aristath/kirki/zipball/6f664660d136b4491ab77712e7f682b01cddeb2a",
-                "reference": "6f664660d136b4491ab77712e7f682b01cddeb2a",
+                "url": "https://api.github.com/repos/aristath/kirki/zipball/d1b56d190e9ecaedda9c69abfea2a82baf47f15b",
+                "reference": "d1b56d190e9ecaedda9c69abfea2a82baf47f15b",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "customizer",
                 "wordpress"
             ],
-            "time": "2018-12-07T22:54:35+00:00"
+            "time": "2018-12-26T17:29:12+00:00"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",

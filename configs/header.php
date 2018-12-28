@@ -126,31 +126,7 @@ Kirki::add_field( $config_id, array(
  */
 $header_menu = new Mai_Styles_Menu( $config_id, $section, 'header' );
 
-// Color.
-// $header_menu->get_color_config();
-
-// Submenu Color.
-// $header_menu->get_submenu_color_config();
-
-// Typography.
-// $header_menu->get_typography_config();
-
-// Submenu Typography.
-// $header_menu->get_submenu_typography_config();
-
 /**
  * Primary Menu.
  */
 $primary_menu = new Mai_Styles_Menu( $config_id, $section, 'primary' );
-
-// Color.
-// $primary_menu->get_color_config();
-
-// Submenu Color.
-// $primary_menu->get_submenu_color_config();
-
-// Typography.
-// $primary_menu->get_typography_config();
-
-// Submenu Typography.
-// $primary_menu->get_submenu_typography_config();
