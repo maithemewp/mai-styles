@@ -125,7 +125,7 @@ class Mai_Styles_Navigation {
 			unset( $config['default']['item_hover_bg'] );
 			unset( $config['default']['item_current_bg'] );
 			unset( $config['output'][0] );               // menu_bg
-			unset( $config['output'][1]['element'][2] ); // .nav-search from item_color
+			// unset( $config['output'][1]['element'][2] ); // .nav-search from item_color
 			unset( $config['output'][2] );               // item_hover_bg
 			unset( $config['output'][3]['element'][4] ); // .nav-search:hover from item_hover_color
 			unset( $config['output'][3]['element'][5] ); // .nav-search:focuse from item_hover_color

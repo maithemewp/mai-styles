@@ -10,7 +10,7 @@ class Mai_Styles_Scroll_Logo {
 	function __construct() {
 		add_action( 'customize_register', array( $this, 'customizer_settings' ) );
 		add_filter( 'get_custom_logo',    array( $this, 'custom_logo' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'inline_styles' ), 1000 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'inline_styles' ), 1010 ); // After Mai Theme Engine inline styles.
 		// add_filter( 'kirki_mai_styles_styles', array( $this, 'kirki_styles' ) );
 	}
 
@@ -141,16 +141,32 @@ class Mai_Styles_Scroll_Logo {
 			$width  = $scroll_width;
 		}
 
-		$max = sprintf( '%spx', $width );
-
+		$width_px  = absint( $width ) . 'px';
+		$shrink_px = absint( $width * .7 ) . 'px';
 		$css = "
-			@media only screen and (min-width: 545px) {
-				.custom-scroll-logo,
-				body.scroll .custom-logo-link {
-					max-width: {$max};
+			@media only screen and (max-width: 768px) {
+				.has-scroll-logo.scroll .custom-scroll-logo,
+				.has-scroll-logo.scroll .custom-logo-link {
+					max-width: {$shrink_px};
+				}
+			}
+			@media only screen and (min-width: 769px) {
+				.has-scroll-logo.scroll .custom-scroll-logo,
+				.has-scroll-logo.scroll .custom-logo-link {
+					max-width: {$width_px};
 				}
 			}
 		";
+		if ( mai_has_shrink_header() ) {
+			$css .= "
+				.has-scroll-logo.scroll .custom-scroll-logo,
+				@media only screen and (min-width: 769px) {
+					.has-scroll-logo.scroll .custom-logo-link {
+						max-width: {$shrink_px};
+					}
+				}
+			";
+		}
 		$handle = ( defined( 'CHILD_THEME_NAME' ) && CHILD_THEME_NAME ) ? sanitize_title_with_dashes( CHILD_THEME_NAME ) : 'child-theme';
 		wp_add_inline_style( $handle, $css );
 	}
