@@ -131,14 +131,18 @@ final class Mai_Styles {
 	/**
 	 * Include required files.
 	 *
-	 * composer require yahnis-elsts/plugin-update-checker
 	 * composer require aristath/kirki
+	 * composer require yahnis-elsts/plugin-update-checker
+	 *
+	 * v4.5  Plugin Update Checker
+	 * v4.5  Plugin Update Checker
 	 *
 	 * @access  private
 	 * @since   0.1.0
 	 * @return  void
 	 */
 	private function includes() {
+		// Vendor.
 		require_once __DIR__ . '/vendor/autoload.php';
 		// Classes.
 		foreach ( glob( MAI_STYLES_CLASSES_DIR . '*.php' ) as $file ) { include_once $file; }
