@@ -73,8 +73,7 @@ class Mai_Styles_Navigation {
 				'default'         => $this->get_header_scroll_defaults(),
 				'output'          => $this->get_header_scroll_output(),
 				'active_callback' => function() {
-					$header_style = genesis_get_option( 'header_style' );
-					return ! ( $header_style || in_array( $header_style, array( 'sticky', 'reveal', 'sticky_shrink', 'reveal_shrink' ) ) );
+					return maistyles_has_shrink_header();
 				},
 			) );
 
