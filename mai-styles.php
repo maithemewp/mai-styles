@@ -311,6 +311,7 @@ final class Mai_Styles {
 					printf( 'color: %s;', $header_color );
 					echo 'text-decoration: underline dotted;';
 				echo '}';
+				echo '.login .message, .login .success, .login #login_error { color: #222; }';
 			}
 		echo '</style>';
 	}
