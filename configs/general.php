@@ -90,13 +90,14 @@ Kirki::add_field( $config_id, array(
  */
 Kirki::add_field( $config_id, array(
 	// 'label'     => esc_attr__( 'Heading Color', 'mai-styles' ),
-	'label'     => esc_attr__( 'Heading', 'mai-styles' ),
-	'type'      => 'multicolor',
-	'settings'  => 'heading_color',
-	'section'   => $section,
-	'transport' => 'auto',
-	'default'   => '',
-	'choices'   => array(
+	'label'       => esc_attr__( 'Headings', 'mai-styles' ),
+	'description' => esc_attr__( 'Default settings for all headings', 'mai-styles' ),
+	'type'        => 'multicolor',
+	'settings'    => 'heading_color',
+	'section'     => $section,
+	'transport'   => 'auto',
+	'default'     => '',
+	'choices'     => array(
 		'color' => esc_attr__( 'Color', 'mai-styles' ),
 	),
 	'default' => array(
