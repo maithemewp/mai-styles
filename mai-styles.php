@@ -144,10 +144,10 @@ final class Mai_Styles {
 	private function includes() {
 		// Vendor.
 		require_once __DIR__ . '/vendor/autoload.php';
-		// Classes.
-		foreach ( glob( MAI_STYLES_CLASSES_DIR . '*.php' ) as $file ) { include_once $file; }
 		// Includes.
 		foreach ( glob( MAI_STYLES_INCLUDES_DIR . '*.php' ) as $file ) { include_once $file; }
+		// Classes.
+		foreach ( glob( MAI_STYLES_CLASSES_DIR . '*.php' ) as $file ) { include_once $file; }
 	}
 
 	/**
@@ -189,10 +189,11 @@ final class Mai_Styles {
 		}
 
 		// Hooks.
-		add_action( 'init',       array( $this, 'kirki_settings' ) );
-		add_action( 'login_head', array( $this, 'login_styles' ) );
+		add_action( 'init',               array( $this, 'kirki_settings' ) );
+		add_action( 'customize_register', array( $this, 'kirki_gettext' ) );
+		add_action( 'login_head',         array( $this, 'login_styles' ) );
 
-		add_filter( 'body_class', array( $this, 'body_class' ) );
+		add_filter( 'body_class',         array( $this, 'body_class' ) );
 	}
 
 	/**
@@ -265,6 +266,34 @@ final class Mai_Styles {
 	}
 
 	/**
+	 * Translation default font-family label in customizer.
+	 *
+	 * @return  void
+	 */
+	function kirki_gettext() {
+		/**
+		 * Change kirki default font-family label.
+		 *
+		 * @param   string $translated_text
+		 * @param   string $text
+		 * @param   string $domain
+		 *
+		 * @return  string
+		 */
+		add_filter( 'gettext', function( $translated_text, $text, $domain ) {
+			if ( 'kirki' !== $domain ) {
+				return $translated_text;
+			}
+			switch ( $translated_text ) {
+				case 'Default Browser Font-Family' :
+					$translated_text = esc_html__( 'Default Font-Family', 'mai-styles' );
+				break;
+			}
+			return $translated_text;
+		}, 10, 3 );
+	}
+
+	/**
 	 * Add custom login styles based on front end styles.
 	 * If using a logo and site header is dark, login page would look weird, this matches a little more consistenty.
 	 *
@@ -330,9 +359,6 @@ final class Mai_Styles {
 	function body_class( $classes ) {
 		if ( maistyles_has_scroll_colors() ) {
 			$classes[] = 'has-scroll-colors';
-		}
-		if ( maistyles_has_scroll_logo() ) {
-			$classes[] = 'has-scroll-logo';
 		}
 		return $classes;
 	}
