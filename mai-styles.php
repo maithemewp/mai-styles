@@ -50,7 +50,7 @@ final class Mai_Styles {
 			// Methods
 			self::$instance->setup_constants();
 			self::$instance->includes();
-			self::$instance->setup();
+			self::$instance->run();
 		}
 		return self::$instance;
 	}
@@ -157,10 +157,21 @@ final class Mai_Styles {
 	 * @since   0.1.0
 	 * @return  void
 	 */
-	public function setup() {
+	public function run() {
 
 		// Updater.
 		add_action( 'plugins_loaded', array( $this, 'updater' ) );
+
+		// Notice.
+		if ( ! is_plugin_active( 'mai-theme-engine/mai-theme-engine.php' ) ) {
+			add_action( 'admin_init', function() {
+				deactivate_plugins( plugin_basename( __FILE__ ) );
+			});
+			add_action( 'admin_notices', function() {
+				printf( '<div class="notice notice-warning"><p>%s</p></div>', __( 'Mai Styles requires Mai Theme Engine plugin. As a result, this plugin has been deactivated.', 'mai-styles' ) );
+			});
+			return;
+		}
 
 		// Bail if no Kirki.
 		if ( ! class_exists( 'Kirki' ) ) {
