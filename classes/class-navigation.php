@@ -28,6 +28,12 @@ class Mai_Styles_Navigation {
 		$this->has_search    = $this->has_search( $this->menu_name );
 
 		$this->labels = array(
+			'header_before' => array(
+				'color'              => __( 'Before Header Menu Color', 'mai-styles' ),
+				'submenu_color'      => __( 'Before Header Submenu Color', 'mai-styles' ),
+				'typography'         => __( 'Before Header Menu Typography', 'mai-styles' ),
+				'submenu_typography' => __( 'Before Header Submenu Typography', 'mai-styles' ),
+			),
 			'header' => array(
 				'color'              => __( 'Header Menu Color', 'mai-styles' ),
 				'submenu_color'      => __( 'Header Submenu Color', 'mai-styles' ),
@@ -116,6 +122,10 @@ class Mai_Styles_Navigation {
 		// If header nav.
 		if ( 'header' === $this->menu_name ) {
 			$config['output'][1]['element'][] = '.mai-bars'; // Add mobile menu toggle.
+		}
+
+		// If header nav.
+		if ( in_array( $this->menu_name, array( 'header_before', 'header' ) ) ) {
 			// Remove items not applicable to header nav.
 			unset( $config['choices']['menu_bg'] );
 			unset( $config['choices']['item_hover_bg'] );
@@ -696,6 +706,8 @@ class Mai_Styles_Navigation {
 	function has_menu( $menu_name ) {
 		if ( 'header' === $menu_name ) {
 			return has_nav_menu( 'header_left' ) || has_nav_menu( 'header_right' );
+		} elseif ( 'header_before' === $menu_name ) {
+			return is_active_sidebar( 'header_before' ) && maistyles_has_header_before_menu();
 		}
 		return has_nav_menu( $menu_name );
 	}

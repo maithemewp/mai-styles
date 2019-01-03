@@ -15,3 +15,16 @@ function maistyles_has_scroll_colors() {
 	$option = get_option( 'mai_styles' );
 	return ( $option && isset( $option['site_header_scroll_color'] ) && ! empty( $option['site_header_scroll_color'] ) );
 }
+
+function maistyles_has_header_before_menu() {
+	$widgets = wp_get_sidebars_widgets();
+	if ( ! isset( $widgets['header_before'] ) ) {
+		return false;
+	}
+	foreach ( $widgets['header_before'] as $widget_id ) {
+		if ( false  !== strpos ( $widget_id, 'nav_menu' ) ) {
+			return true;
+		}
+	}
+	return false;
+}

@@ -61,6 +61,11 @@ Kirki::add_field( $config_id, array(
 ) );
 
 /**
+ * Header Before Menu.
+ */
+$header_before_menu = new Mai_Styles_Navigation( $config_id, $section, 'header_before' );
+
+/**
  * Header.
  */
 Kirki::add_field( $config_id, array(
