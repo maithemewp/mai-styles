@@ -18,13 +18,18 @@ function maistyles_has_scroll_colors() {
 
 function maistyles_has_header_before_menu() {
 	$widgets = wp_get_sidebars_widgets();
-	if ( ! isset( $widgets['header_before'] ) ) {
+	if ( ! $widgets ) {
+		return false;
+	}
+	if ( ! isset( $widgets['header_before'] ) || empty( $widgets['header_before'] ) ) {
 		return false;
 	}
 	foreach ( $widgets['header_before'] as $widget_id ) {
+		// Has navigation widget.
 		if ( false  !== strpos ( $widget_id, 'nav_menu' ) ) {
 			return true;
 		}
 	}
 	return false;
 }
+

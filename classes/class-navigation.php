@@ -21,7 +21,7 @@ class Mai_Styles_Navigation {
 		$this->config_id     = $config_id;
 		$this->menu_name     = $menu_name;
 		$this->section       = $section;
-		$this->class         = sprintf( '.nav-%s', $this->menu_name );
+		$this->class         = sprintf( '.nav-%s', str_replace( '_', '-', $this->menu_name ) );
 		$this->has_menu      = $this->has_menu( $this->menu_name );
 		$this->has_submenu   = $this->has_submenu( $this->menu_name );
 		$this->has_highlight = $this->has_highlight( $this->menu_name );
@@ -843,10 +843,56 @@ class Mai_Styles_Navigation {
 			$menu_items = array_merge( $menu_items, $items );
 		}
 
+		// Get header before widget area menus.
+		if ( ( 'header_before' === $menu_name ) && maistyles_has_header_before_menu() ) {
+			$header_before_menus = $this->get_widget_area_menus( $menu_name );
+			if ( $header_before_menus ) {
+				foreach ( $header_before_menus as $menu ) {
+					$items = wp_get_nav_menu_items( $menu );
+					if ( ! $items ) {
+						continue;
+					}
+					$menu_items = array_merge( $menu_items, $items );
+				}
+			}
+		}
+
 		// Add to cache.
 		$menu_items_cache[ $menu_name ] = $menu_items;
 
 		return $menu_items;
+	}
+
+	function get_widget_area_menus( $widget_area ) {
+		$widgets = wp_get_sidebars_widgets();
+		if ( ! $widgets ) {
+			return false;
+		}
+		if ( ! isset( $widgets[ $widget_area ] ) || empty( $widgets[ $widget_area ] ) ) {
+			return false;
+		}
+		$menus = array();
+		foreach ( $widgets[ $widget_area ] as $widget_id ) {
+			// Has navigation widget.
+			if ( false  !== strpos ( $widget_id, 'nav_menu' ) ) {
+				$instance = $this->get_widget_instance( $widget_id );
+				if ( isset( $instance['nav_menu'] ) && ! empty( $instance['nav_menu'] ) ) {
+					$menus[] = wp_get_nav_menu_object( $instance['nav_menu'] );
+				}
+			}
+		}
+		$menus = ! empty( $menus ) ? $menus : false;
+		return $menus;
+	}
+
+	function get_widget_instance( $widget_id ) {
+		global $wp_registered_widgets;
+		if ( ! isset( $wp_registered_widgets[$widget_id]['callback'] ) || empty( $wp_registered_widgets[$widget_id]['callback'] ) ) {
+			return array();
+		}
+		$widget   = $wp_registered_widgets[$widget_id]['callback'][0];
+		$settings = $widget->get_settings();
+		return ! empty( $settings[ $widget->number ] ) ? $settings[ $widget->number ] : array();
 	}
 
 }
