@@ -203,7 +203,7 @@ final class Mai_Styles {
 		add_action( 'init',               array( $this, 'kirki_settings' ) );
 		add_action( 'customize_register', array( $this, 'kirki_gettext' ) );
 		add_action( 'login_head',         array( $this, 'login_styles' ) );
-
+		add_action( 'after_setup_theme',  array( $this, 'disable_theme_fonts' ) );
 		add_filter( 'body_class',         array( $this, 'body_class' ) );
 	}
 
@@ -228,6 +228,7 @@ final class Mai_Styles {
 	 * Register the customizer settings..
 	 *
 	 * @since   0.1.0
+	 *
 	 * @return  void
 	 */
 	function kirki_settings() {
@@ -309,6 +310,7 @@ final class Mai_Styles {
 	 * If using a logo and site header is dark, login page would look weird, this matches a little more consistenty.
 	 *
 	 * @since   0.1.0
+	 *
 	 * @return  void
 	 */
 	function login_styles() {
@@ -358,6 +360,25 @@ final class Mai_Styles {
 				echo '.login .message, .login .success, .login #login_error { color: #222; }';
 			}
 		echo '</style>';
+	}
+
+	/**
+	 * Maybe disable fonts enqueued in Mai Theme.
+	 *
+	 * @since   0.5.0
+	 *
+	 * @return  void
+	 */
+	function disable_theme_fonts() {
+		$option = get_option( 'mai_styles' );
+		if ( ! $option ) {
+			return;
+		}
+		if ( ! ( isset( $option['disable_theme_fonts'] ) && $option['disable_theme_fonts'] ) ) {
+			return;
+		}
+		// Remove fonts callback from theme.
+		remove_action( 'wp_enqueue_scripts', 'maitheme_enqueue_fonts' );
 	}
 
 	/**

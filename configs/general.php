@@ -11,6 +11,18 @@ Kirki::add_section( $section, array(
 ) );
 
 /**
+ * Disable theme fonts.
+ */
+Kirki::add_field( $config_id, array(
+	'type'        => 'checkbox',
+	'settings'    => 'disable_theme_fonts',
+	'label'       => esc_attr__( 'Disable theme fonts', 'mai-styles' ),
+	// 'description' => esc_attr__( 'Removes default fonts from the theme.', 'mai-styles' ),
+	'section'     => $section,
+	'default'     => false,
+) );
+
+/**
  * Body.
  */
 Kirki::add_field( $config_id, array(
