@@ -64,26 +64,26 @@ class Mai_Styles_Navigation {
 		 */
 		Kirki::add_field( $this->config_id, $this->get_submenu_color_config() );
 
-		if ( 'header' === $this->menu_name ) {
+		// if ( 'header' === $this->menu_name ) {
 
-			/**
-			 * Header Scroll Color.
-			 */
-			Kirki::add_field( $config_id, array(
-				'type'            => 'multicolor',
-				'settings'        => 'site_header_scroll_color',
-				'label'           => __( 'Header Scroll', 'mai-styles' ),
-				'section'         => $section,
-				'transport'       => 'auto',
-				'choices'         => $this->get_header_scroll_choices(),
-				'default'         => $this->get_header_scroll_defaults(),
-				'output'          => $this->get_header_scroll_output(),
-				'active_callback' => function() {
-					return maistyles_has_scroll_colors();
-				},
-			) );
+		// 	/**
+		// 	 * Header Scroll Color.
+		// 	 */
+		// 	Kirki::add_field( $config_id, array(
+		// 		'type'            => 'multicolor',
+		// 		'settings'        => 'site_header_scroll_color',
+		// 		'label'           => __( 'Header Scroll', 'mai-styles' ),
+		// 		'section'         => $section,
+		// 		'transport'       => 'auto',
+		// 		'choices'         => $this->get_header_scroll_choices(),
+		// 		'default'         => $this->get_header_scroll_defaults(),
+		// 		'output'          => $this->get_header_scroll_output(),
+		// 		'active_callback' => function() {
+		// 			return maistyles_has_scroll_colors();
+		// 		},
+		// 	) );
 
-		}
+		// }
 
 		/**
 		 * Typography.
@@ -409,7 +409,7 @@ class Mai_Styles_Navigation {
 				'choice'   => 'header_bg',
 				'property' => 'background-color',
 				'element'  => array(
-					".has-scroll-colors.scroll .site-header",
+					".has-scroll-colors .site-header.scroll",
 				),
 				'media_query' => '@media only screen and (min-width: 545px)',
 			)
@@ -420,12 +420,12 @@ class Mai_Styles_Navigation {
 					'choice'   => 'item_color',
 					'property' => 'color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class}",
-						".has-scroll-colors.scroll {$this->class} a",
-						".has-scroll-colors.scroll {$this->class} .nav-search",
-						".has-scroll-colors.scroll {$this->class} .sub-menu a",
-						".has-scroll-colors.scroll.home {$this->class} .current-menu-item > a",
-						".has-scroll-colors.scroll .mai-bars",
+						".has-scroll-colors .site-header.scroll {$this->class}",
+						".has-scroll-colors .site-header.scroll {$this->class} a",
+						".has-scroll-colors .site-header.scroll {$this->class} .nav-search",
+						".has-scroll-colors .site-header.scroll {$this->class} .sub-menu a",
+						".has-scroll-colors.home .site-header.scroll {$this->class} .current-menu-item > a",
+						".has-scroll-colors .site-header.scroll .mai-bars",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -433,18 +433,18 @@ class Mai_Styles_Navigation {
 					'choice'   => 'item_hover_color',
 					'property' => 'color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} a:hover",
-						".has-scroll-colors.scroll {$this->class} a:focus",
-						".has-scroll-colors.scroll {$this->class} .nav-search:hover",
-						".has-scroll-colors.scroll {$this->class} .nav-search:focus",
-						".has-scroll-colors.scroll {$this->class} .sub-menu a:hover",
-						".has-scroll-colors.scroll {$this->class} .sub-menu a:focus",
-						".has-scroll-colors.scroll {$this->class} > .current-menu-item > a",
-						".has-scroll-colors.scroll {$this->class} > .current-menu-ancestor > a",
-						".has-scroll-colors.scroll {$this->class} > .menu-item-has-children:not(.highlight):hover > a",
-						".has-scroll-colors.scroll {$this->class} > .menu-item-has-children:not(.highlight):focus > a",
-						".has-scroll-colors.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
-						".has-scroll-colors.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
+						".has-scroll-colors .site-header.scroll {$this->class} a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .nav-search:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .nav-search:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .sub-menu a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .sub-menu a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} > .current-menu-item > a",
+						".has-scroll-colors .site-header.scroll {$this->class} > .current-menu-ancestor > a",
+						".has-scroll-colors .site-header.scroll {$this->class} > .menu-item-has-children:not(.highlight):hover > a",
+						".has-scroll-colors .site-header.scroll {$this->class} > .menu-item-has-children:not(.highlight):focus > a",
+						".has-scroll-colors .site-header.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
+						".has-scroll-colors .site-header.scroll {$this->class} > .menu-item-has-children:not(.current-menu-ancestor):focus > a",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -452,12 +452,12 @@ class Mai_Styles_Navigation {
 					'choice'   => 'item_current_color',
 					'property' => 'color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} .current-menu-item > a",
-						".has-scroll-colors.scroll {$this->class} .current-menu-item > a:hover",
-						".has-scroll-colors.scroll {$this->class} .current-menu-item > a:focus",
-						".has-scroll-colors.scroll {$this->class} .current-menu-ancestor > a",
-						".has-scroll-colors.scroll {$this->class} .current-menu-ancestor > a:hover",
-						".has-scroll-colors.scroll {$this->class} .current-menu-ancestor > a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .current-menu-item > a",
+						".has-scroll-colors .site-header.scroll {$this->class} .current-menu-item > a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .current-menu-item > a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .current-menu-ancestor > a",
+						".has-scroll-colors .site-header.scroll {$this->class} .current-menu-ancestor > a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .current-menu-ancestor > a:focus",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -469,8 +469,8 @@ class Mai_Styles_Navigation {
 					'choice'   => 'button_bg',
 					'property' => 'background-color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} .highlight > a",
-						".has-scroll-colors.scroll {$this->class} .highlight.current-menu-item > a",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight > a",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight.current-menu-item > a",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -478,8 +478,8 @@ class Mai_Styles_Navigation {
 					'choice'   => 'button_color',
 					'property' => 'color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} .highlight > a",
-						".has-scroll-colors.scroll {$this->class} .highlight.current-menu-item > a",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight > a",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight.current-menu-item > a",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -487,10 +487,10 @@ class Mai_Styles_Navigation {
 					'choice'   => 'button_hover_bg',
 					'property' => 'background-color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} .highlight > a:hover",
-						".has-scroll-colors.scroll {$this->class} .highlight > a:focus",
-						".has-scroll-colors.scroll {$this->class} .highlight.current-menu-item > a:hover",
-						".has-scroll-colors.scroll {$this->class} .highlight.current-menu-item > a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight > a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight > a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight.current-menu-item > a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight.current-menu-item > a:focus",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -498,10 +498,10 @@ class Mai_Styles_Navigation {
 					'choice'   => 'button_hover_color',
 					'property' => 'color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} .highlight > a:hover",
-						".has-scroll-colors.scroll {$this->class} .highlight > a:focus",
-						".has-scroll-colors.scroll {$this->class} .highlight.current-menu-item > a:hover",
-						".has-scroll-colors.scroll {$this->class} .highlight.current-menu-item > a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight > a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight > a:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight.current-menu-item > a:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .highlight.current-menu-item > a:focus",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
@@ -513,8 +513,8 @@ class Mai_Styles_Navigation {
 					'choice'   => 'search_hover_color',
 					'property' => 'color',
 					'element'  => array(
-						".has-scroll-colors.scroll {$this->class} .nav-search:hover",
-						".has-scroll-colors.scroll {$this->class} .nav-search:focus",
+						".has-scroll-colors .site-header.scroll {$this->class} .nav-search:hover",
+						".has-scroll-colors .site-header.scroll {$this->class} .nav-search:focus",
 					),
 					'media_query' => '@media only screen and (min-width: 545px)',
 				),
