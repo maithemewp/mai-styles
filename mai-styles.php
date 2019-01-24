@@ -162,23 +162,15 @@ final class Mai_Styles {
 		// Updater.
 		add_action( 'plugins_loaded', array( $this, 'updater' ) );
 
-		// Notice.
-		if ( ! is_plugin_active( 'mai-theme-engine/mai-theme-engine.php' ) ) {
-			add_action( 'admin_init', function() {
-				deactivate_plugins( plugin_basename( __FILE__ ) );
-			});
-			add_action( 'admin_notices', function() {
-				printf( '<div class="notice notice-warning"><p>%s</p></div>', __( 'Mai Styles requires Mai Theme Engine plugin. As a result, this plugin has been deactivated.', 'mai-styles' ) );
-			});
-			return;
-		}
+		// Maybe deactivate. Run after Mai Theme.
+		add_action( 'plugins_loaded', array( $this, 'maybe_deactivate' ), 20 );
 
 		// Bail if no Kirki.
 		if ( ! class_exists( 'Kirki' ) ) {
 			return;
 		}
 
-		// Disable deafult loader to keep things looking like regular WP.
+		// Disable default loader to keep things looking like regular WP.
 		add_filter( 'kirki_config', function( $config ) {
 			return wp_parse_args( array(
 				'disable_loader' => true,
@@ -222,6 +214,32 @@ final class Mai_Styles {
 			return;
 		}
 		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-styles/', __FILE__, 'mai-styles' );
+	}
+
+	/**
+	 * Maybe deactivate the plugin if conditions aren't met.
+	 *
+	 * @since   0.7.0
+	 *
+	 * @return  void
+	 */
+	public function maybe_deactivate() {
+		// Bail if no Mai Theme.
+		if ( class_exists( 'Mai_Theme_Engine' ) ) {
+			return;
+		}
+		// Deactivate.
+		add_action( 'admin_init', function() {
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+		});
+		// Notice.
+		add_action( 'admin_notices', function() {
+			printf( '<div class="notice notice-warning"><p>%s</p></div>', __( 'Mai Styles requires Mai Theme Engine plugin. As a result, Mai Styles has been deactivated.', 'mai-styles' ) );
+			// Remove "Plugin activated" notice.
+			if ( isset( $_GET['activate'] ) ) {
+				unset( $_GET['activate'] );
+			}
+		});
 	}
 
 	/**
