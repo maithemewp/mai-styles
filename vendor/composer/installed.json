@@ -1,17 +1,17 @@
 [
     {
         "name": "aristath/kirki",
-        "version": "v3.0.35.3",
-        "version_normalized": "3.0.35.3",
+        "version": "v3.0.36",
+        "version_normalized": "3.0.36.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aristath/kirki.git",
-            "reference": "d1b56d190e9ecaedda9c69abfea2a82baf47f15b"
+            "reference": "511be5ee96776d17843186b50c28b4fd33092330"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aristath/kirki/zipball/d1b56d190e9ecaedda9c69abfea2a82baf47f15b",
-            "reference": "d1b56d190e9ecaedda9c69abfea2a82baf47f15b",
+            "url": "https://api.github.com/repos/aristath/kirki/zipball/511be5ee96776d17843186b50c28b4fd33092330",
+            "reference": "511be5ee96776d17843186b50c28b4fd33092330",
             "shasum": ""
         },
         "require": {
@@ -26,15 +26,14 @@
             "phpunit/phpunit": "*",
             "wp-coding-standards/wpcs": "*"
         },
-        "time": "2018-12-26T17:29:12+00:00",
+        "time": "2019-02-17T12:43:12+00:00",
         "type": "library",
         "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "kirki.php"
-            ]
-        },
         "notification-url": "https://packagist.org/downloads/",
+        "include-path": [
+            ".",
+            "core"
+        ],
         "license": [
             "MIT"
         ],
@@ -43,12 +42,6 @@
                 "name": "aristath",
                 "email": "aristath@gmail.com",
                 "homepage": "https://aristath.github.io",
-                "role": "Developer"
-            },
-            {
-                "name": "fovoc",
-                "email": "kalliris.d@gmail.com",
-                "homepage": "https://github.com/fovoc",
                 "role": "Developer"
             }
         ],

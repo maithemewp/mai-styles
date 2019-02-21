@@ -3,7 +3,7 @@ layout: default
 title: The "radio" control
 slug: radio
 subtitle: Learn how to create controls using Kirki
-mainMaxWidth: 50rem;
+mainMaxWidth: 55rem;
 bodyClasses: control page
 returns: string
 heroButtons:
@@ -18,44 +18,44 @@ You can define the available options using the `choices` argument and formating 
 ### Example
 
 ```php
-Kirki::add_field( 'theme_config_id', array(
+Kirki::add_field( 'theme_config_id', [
 	'type'        => 'radio',
 	'settings'    => 'my_setting',
-	'label'       => __( 'Radio Control', 'textdomain' ),
+	'label'       => esc_html__( 'Radio Control', 'kirki' ),
 	'section'     => 'section_id',
 	'default'     => 'red',
 	'priority'    => 10,
-	'choices'     => array(
-		'red'   => esc_html__( 'Red', 'textdomain' ),
-		'green' => esc_html__( 'Green', 'textdomain' ),
-		'blue'  => esc_html__( 'Blue', 'textdomain' ),
-	),
-) );
+	'choices'     => [
+		'red'   => esc_html__( 'Red', 'kirki' ),
+		'green' => esc_html__( 'Green', 'kirki' ),
+		'blue'  => esc_html__( 'Blue', 'kirki' ),
+	],
+] );
 ```
 
 In case you need to add additional, extra-long descriptions to your radio options you can use a format like this:
 
 ```php
-Kirki::add_field( 'theme_config_id', array(
+Kirki::add_field( 'theme_config_id', [
 	'type'        => 'radio',
 	'settings'    => 'my_setting',
-	'label'       => __( 'Radio Control', 'textdomain' ),
+	'label'       => esc_html__( 'Radio Control', 'kirki' ),
 	'section'     => 'section_id',
 	'default'     => 'red',
 	'priority'    => 10,
-	'choices'     => array(
-		'red'   => array(
+	'choices'     => [
+		'red'   => [
 			esc_html__( 'Red', 'my_textdomain' ),
-			esc_html__( 'These are some extra details about Red', 'textdomain' ),
-		),
-		'green' => array(
+			esc_html__( 'These are some extra details about Red', 'kirki' ),
+		],
+		'green' => [
 			esc_html__( 'Green', 'kirki' ),
-			esc_html__( 'These are some extra details about Green', 'textdomain' ),
-		),
-		'blue'  => array(
+			esc_html__( 'These are some extra details about Green', 'kirki' ),
+		],
+		'blue'  => [
 			esc_html__( 'Blue', 'kirki' ),
-			esc_html__( 'These are some extra details about Blue', 'textdomain' ),
-		),
-	),
-) );
+			esc_html__( 'These are some extra details about Blue', 'kirki' ),
+		],
+	],
+] );
 ```
