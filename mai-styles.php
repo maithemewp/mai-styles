@@ -50,7 +50,7 @@ final class Mai_Styles {
 			// Methods
 			self::$instance->setup_constants();
 			self::$instance->includes();
-			self::$instance->run();
+			self::$instance->hooks();
 		}
 		return self::$instance;
 	}
@@ -142,8 +142,11 @@ final class Mai_Styles {
 	 * @return  void
 	 */
 	private function includes() {
-		// Vendor.
+
+		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
+		require_once __DIR__ . '/vendor/aristath/kirki/kirki.php';
+
 		// Includes.
 		foreach ( glob( MAI_STYLES_INCLUDES_DIR . '*.php' ) as $file ) { include_once $file; }
 		// Classes.
@@ -157,7 +160,7 @@ final class Mai_Styles {
 	 * @since   0.1.0
 	 * @return  void
 	 */
-	public function run() {
+	public function hooks() {
 
 		// Updater.
 		add_action( 'plugins_loaded', array( $this, 'updater' ) );
@@ -165,31 +168,16 @@ final class Mai_Styles {
 		// Maybe deactivate. Run after Mai Theme.
 		add_action( 'plugins_loaded', array( $this, 'maybe_deactivate' ), 20 );
 
-		// Bail if no Kirki.
-		if ( ! class_exists( 'Kirki' ) ) {
-			return;
-		}
-
 		// Disable default loader to keep things looking like regular WP.
 		add_filter( 'kirki_config', function( $config ) {
 			return wp_parse_args( array(
 				'disable_loader' => true,
+				// 'url_path'       => MAI_STYLES_PLUGIN_DIR . 'vendor/aristath/kirki/',
 			), $config );
 		});
 
-		/**
-		 * This allows Kirki to run in a symlinked plugin on my computer.
-		 * Sorry for the extra code just for me ¯\_(ツ)_/¯
-		 */
-		$url = Kirki::$url;
-		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/mai-styles' ) ) {
-			add_filter( 'kirki_config', function( $config ) use ( $url ) {
-				$url_path = isset( $config['url_path'] ) ? $config['url_path']: $url;
-				$new_url  = str_replace( '/Users/JiveDig/Plugins/mai-styles', MAI_STYLES_PLUGIN_URL, $url_path );
-				$config['url_path'] = $new_url;
-				return $config;
-			});
-		}
+		// Disable Kirki statistics notice.
+		add_filter( 'kirki_telemetry', '__return_false' );
 
 		// Hooks.
 		add_action( 'init',               array( $this, 'kirki_settings' ) );
@@ -250,6 +238,11 @@ final class Mai_Styles {
 	 * @return  void
 	 */
 	function kirki_settings() {
+
+		// Bail if no Kirki.
+		if ( ! class_exists( 'Kirki' ) ) {
+			return;
+		}
 
 		$config_id      = 'mai_styles';
 		$panel_id       = 'mai_styles';
