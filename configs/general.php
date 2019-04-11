@@ -123,6 +123,7 @@ Kirki::add_field( $config_id, array(
 				'.banner-title',
 				'.entry-title',
 				'.entry-title a',
+				'.heading',
 				'h1',
 				'h2',
 				'h3',
@@ -156,6 +157,7 @@ Kirki::add_field( $config_id, array(
 			'element' => array(
 				'.banner-title',
 				'.entry-title',
+				'.heading',
 				'h1',
 				'h2',
 				'h3',
