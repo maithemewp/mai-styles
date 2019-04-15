@@ -6,7 +6,7 @@ $section = 'maicolors_woocommerce';
  * WooCommerce *
  * *********** */
 Kirki::add_section( $section, array(
-	'title' => esc_attr__( 'WooCommerce', 'mai-colors' ),
+	'title' => esc_attr__( 'WooCommerce', 'mai-styles' ),
 	'panel' => $panel_id,
 	'active_callback' => function() {
 		return class_exists( 'WooCommerce' );
@@ -17,16 +17,16 @@ Kirki::add_section( $section, array(
  * Buttons (Primary)
  */
 Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Buttons (Primary/Products)', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'woocommerce_button',
-	'label'     => esc_attr__( 'Buttons (Primary/Products)', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
-		'bg'          => esc_attr__( 'Background Color', 'mai-colors' ),
-		'color'       => esc_attr__( 'Text Color', 'mai-colors' ),
-		'bg_hover'    => esc_attr__( 'Background Hover', 'mai-colors' ),
-		'color_hover' => esc_attr__( 'Text Hover', 'mai-colors' ),
+		'bg'          => esc_attr__( 'Background Color', 'mai-styles' ),
+		'color'       => esc_attr__( 'Text Color', 'mai-styles' ),
+		'bg_hover'    => esc_attr__( 'Background Hover', 'mai-styles' ),
+		'color_hover' => esc_attr__( 'Text Hover', 'mai-styles' ),
 	),
 	'default' => array(
 		'bg'          => '',
@@ -162,16 +162,16 @@ Kirki::add_field( $config_id, array(
  * Buttons (Alternate/Secondary)
  */
 Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Buttons (Secondary/Shop)', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'woocommerce_button_alt',
-	'label'     => esc_attr__( 'Buttons (Secondary/Shop)', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
-		'bg'          => esc_attr__( 'Background Color', 'mai-colors' ),
-		'color'       => esc_attr__( 'Text Color', 'mai-colors' ),
-		'bg_hover'    => esc_attr__( 'Background Hover', 'mai-colors' ),
-		'color_hover' => esc_attr__( 'Text Hover', 'mai-colors' ),
+		'bg'          => esc_attr__( 'Background Color', 'mai-styles' ),
+		'color'       => esc_attr__( 'Text Color', 'mai-styles' ),
+		'bg_hover'    => esc_attr__( 'Background Hover', 'mai-styles' ),
+		'color_hover' => esc_attr__( 'Text Hover', 'mai-styles' ),
 	),
 	'default' => array(
 		'bg'          => '',
@@ -283,13 +283,13 @@ Kirki::add_field( $config_id, array(
  * Prices
  */
 Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Prices', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'woocommerce_price',
-	'label'     => esc_attr__( 'Prices', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
-		'price' => esc_attr__( 'Prices', 'mai-colors' ),
+		'price' => esc_attr__( 'Prices', 'mai-styles' ),
 	),
 	'default' => array(
 		'price' => '',
@@ -310,14 +310,14 @@ Kirki::add_field( $config_id, array(
  * Sale badge
  */
 Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Sale Badge', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'woocommerce_sale',
-	'label'     => esc_attr__( 'Sale Badge', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
-		'bg'    => esc_attr__( 'Background Color', 'mai-colors' ),
-		'color' => esc_attr__( 'Text Color', 'mai-colors' ),
+		'bg'    => esc_attr__( 'Background Color', 'mai-styles' ),
+		'color' => esc_attr__( 'Text Color', 'mai-styles' ),
 	),
 	'default' => array(
 		'bg'    => '',
@@ -342,18 +342,81 @@ Kirki::add_field( $config_id, array(
 ) );
 
 /**
+ * Store Notice.
+ */
+Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Store Notice', 'mai-styles' ),
+	'type'      => 'multicolor',
+	'settings'  => 'woocommerce_store_notice',
+	'section'   => $section,
+	'transport' => 'auto',
+	'default'   => '',
+	'choices'   => array(
+		'bg'         => esc_attr__( 'Background Color', 'mai-styles' ),
+		'color'      => esc_attr__( 'Text Color', 'mai-styles' ),
+		'link'       => esc_attr__( 'Link Color', 'mai-styles' ),
+		'link_hover' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
+	),
+	'default' => array(
+		'bg'         => '',
+		'color'      => '',
+		'link'       => '',
+		'link_hover' => '',
+	),
+	'output' => array(
+		array(
+			'choice'   => 'bg',
+			'property' => 'background-color',
+			'element'  => array(
+				'.woocommerce-store-notice',
+				'p.demo_store',
+			),
+		),
+		array(
+			'choice'   => 'color',
+			'property' => 'color',
+			'element'  => array(
+				'.woocommerce-store-notice',
+				'p.demo_store',
+			),
+		),
+		array(
+			'choice'   => 'link',
+			'property' => 'color',
+			'element'  => array(
+				'.woocommerce-store-notice a',
+				'p.demo_store a',
+			),
+		),
+		array(
+			'choice'   => 'link_hover',
+			'property' => 'color',
+			'element'  => array(
+				'.woocommerce-store-notice a:hover',
+				'.woocommerce-store-notice a:focus',
+				'p.demo_store a:hover',
+				'p.demo_store a:focus',
+			),
+		),
+	),
+	'active_callback' => function() {
+		return ( function_exists( 'is_store_notice_showing' ) && is_store_notice_showing() );
+	}
+) );
+
+/**
  * Notices
  */
 Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Notices', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'woocommerce_notice',
-	'label'     => esc_attr__( 'Notices', 'mai-colors' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'choices'   => array(
-		'message_color' => esc_attr__( 'Message', 'mai-colors' ),
-		'info_color'    => esc_attr__( 'Info', 'mai-colors' ),
-		'error_color'   => esc_attr__( 'Error', 'mai-colors' ),
+		'message_color' => esc_attr__( 'Message', 'mai-styles' ),
+		'info_color'    => esc_attr__( 'Info', 'mai-styles' ),
+		'error_color'   => esc_attr__( 'Error', 'mai-styles' ),
 	),
 	'default' => array(
 		'message_color' => '#8fae1b',
@@ -361,13 +424,6 @@ Kirki::add_field( $config_id, array(
 		'error_color'   => '#b81c23',
 	),
 	'output' => array(
-		array(
-			'choice'   => 'message_color',
-			'property' => 'color',
-			'element'  => array(
-				'.woocommerce-message::before',
-			),
-		),
 		array(
 			'choice'   => 'message_color',
 			'property' => 'border-top-color',
