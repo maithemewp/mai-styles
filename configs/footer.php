@@ -16,16 +16,16 @@ Kirki::add_section( $section, array(
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
 	'settings'  => 'footer_widgets',
-	'label'     => __( 'Footer Widgets', 'mai-colors' ),
+	'label'     => __( 'Footer Widgets', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => '',
 	'choices'   => array(
-		'bg'               => esc_attr__( 'Background', 'mai-colors' ),
-		'title_color'      => esc_attr__( 'Title Color', 'mai-colors' ),
-		'color'            => esc_attr__( 'Text Color', 'mai-colors' ),
-		'link_color'       => esc_attr__( 'Link Color', 'mai-colors' ),
-		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-colors' ),
+		'bg'               => esc_attr__( 'Background', 'mai-styles' ),
+		'title_color'      => esc_attr__( 'Title Color', 'mai-styles' ),
+		'color'            => esc_attr__( 'Text Color', 'mai-styles' ),
+		'link_color'       => esc_attr__( 'Link Color', 'mai-styles' ),
+		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
 
 	),
 	'default' => array(
@@ -72,15 +72,15 @@ Kirki::add_field( $config_id, array(
 Kirki::add_field( $config_id, array(
 	'type'      => 'multicolor',
 	'settings'  => 'site_footer',
-	'label'     => __( 'Site Footer Background', 'mai-colors' ),
+	'label'     => __( 'Site Footer Background', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
 	'default'   => '',
 	'choices'   => array(
-		'bg'               => esc_attr__( 'Background', 'mai-colors' ),
-		'color'            => esc_attr__( 'Text Color', 'mai-colors' ),
-		'link_color'       => esc_attr__( 'Link Color', 'mai-colors' ),
-		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-colors' ),
+		'bg'               => esc_attr__( 'Background', 'mai-styles' ),
+		'color'            => esc_attr__( 'Text Color', 'mai-styles' ),
+		'link_color'       => esc_attr__( 'Link Color', 'mai-styles' ),
+		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
 
 	),
 	'default' => array(
