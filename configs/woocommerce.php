@@ -194,6 +194,7 @@ Kirki::add_field( $config_id, array(
 				// '.woocommerce .actions .button', // Coupons and update cart. This would look bad to change.
 				// '.woocommerce a.button.alt',     // These break things when non-woo buttons are used on a woo page.
 				'.woocommerce a.button.add_to_cart_button',
+				'.woocommerce table.shop_table .button',
 			),
 		),
 		array(
@@ -220,6 +221,8 @@ Kirki::add_field( $config_id, array(
 				// '.woocommerce a.button.alt:focus',
 				'.woocommerce a.button.add_to_cart_button:hover',
 				'.woocommerce a.button.add_to_cart_button:focus',
+				'.woocommerce table.shop_table .button:hover',
+				'.woocommerce table.shop_table .button:focus',
 			),
 		),
 		array(
@@ -236,6 +239,7 @@ Kirki::add_field( $config_id, array(
 				// '.woocommerce .actions .button',
 				// '.woocommerce a.button.alt',
 				'.woocommerce a.button.add_to_cart_button',
+				'.woocommerce table.shop_table .button',
 			),
 		),
 		array(
@@ -262,6 +266,8 @@ Kirki::add_field( $config_id, array(
 				// '.woocommerce a.button.alt:focus',
 				'.woocommerce a.button.add_to_cart_button:hover',
 				'.woocommerce a.button.add_to_cart_button:focus',
+				'.woocommerce table.shop_table .button:hover',
+				'.woocommerce table.shop_table .button:focus',
 			),
 		),
 	),
