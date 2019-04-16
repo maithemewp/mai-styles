@@ -1,5 +1,10 @@
 # Changelog
 
+* Added: Color and Typography settings for Section Titles.
+* Added: Color settings for WooCommerce Store Notice.'
+* Changed: No longer limiting the amount of Google Font choices.
+* Fixed: WooCommerce alt button style now work on table buttons (action links) and review submit buttons.
+
 ## 0.7.1 (1/24/19)
 * Fixed: Alt button (more link) color was using Primary button color.
 
