@@ -146,6 +146,7 @@ final class Mai_Styles {
 		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
 		require_once __DIR__ . '/vendor/aristath/kirki/kirki.php';
+		// require_once __DIR__ . '/vendor/aristath/kirki/example.php';
 
 		// Includes.
 		foreach ( glob( MAI_STYLES_INCLUDES_DIR . '*.php' ) as $file ) { include_once $file; }
@@ -168,23 +169,16 @@ final class Mai_Styles {
 		// Maybe deactivate. Run after Mai Theme.
 		add_action( 'plugins_loaded', array( $this, 'maybe_deactivate' ), 20 );
 
-		// Disable default loader to keep things looking like regular WP.
-		add_filter( 'kirki_config', function( $config ) {
-			return wp_parse_args( array(
-				'disable_loader' => true,
-				// 'url_path'       => MAI_STYLES_PLUGIN_DIR . 'vendor/aristath/kirki/',
-			), $config );
-		});
-
 		// Disable Kirki statistics notice.
 		add_filter( 'kirki_telemetry', '__return_false' );
 
 		// Hooks.
 		add_action( 'init',               array( $this, 'kirki_settings' ) );
 		add_action( 'customize_register', array( $this, 'kirki_gettext' ) );
+		add_action( 'customize_register', array( $this, 'kirki_styles' ) );
 		add_action( 'login_head',         array( $this, 'login_styles' ) );
 		add_action( 'after_setup_theme',  array( $this, 'disable_theme_fonts' ) );
-		add_filter( 'body_class',         array( $this, 'body_class' ) );
+		// add_filter( 'body_class',         array( $this, 'body_class' ) );
 	}
 
 	/**
@@ -244,14 +238,7 @@ final class Mai_Styles {
 			return;
 		}
 
-		$config_id      = 'mai_styles';
-		$panel_id       = 'mai_styles';
-		$settings_field = 'mai_styles';
-		$config         = array(
-			'capability'  => 'edit_theme_options',
-			'option_type' => 'option',
-			'option_name' => $settings_field,
-		);
+		$config_id = $panel_id = $settings_field = 'mai_styles';
 
 		/**
 		 * Kirki Config.
@@ -314,6 +301,21 @@ final class Mai_Styles {
 			}
 			return $translated_text;
 		}, 10, 3 );
+	}
+
+	/**
+	 * Add the Mai Theme icon logo as the loader.
+	 *
+	 * @since   0.8.0
+	 *
+	 * @return  void
+	 */
+	function kirki_styles() {
+		// Run after Kirki, and add !important to override. Until Kikri v4 with a filter for this.
+		add_action( 'wp_head', function() {
+			$svg = trailingslashit( MAI_STYLES_PLUGIN_URL ) . 'assets/mai-logo.svg';
+			printf( '<style>.kirki-customizer-loading-wrapper { background-image: url( "%s" ) !important; }</style>', esc_url_raw( $svg ) );
+		}, 101 );
 	}
 
 	/**
