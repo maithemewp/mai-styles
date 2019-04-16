@@ -75,11 +75,6 @@ Kirki::add_field( $config_id, array(
 	'settings'  => 'body_typography',
 	'section'   => $section,
 	'transport' => 'auto',
-	'choices'   => array(
-		'fonts' => array(
-			'google' => array( 'popularity', 30 ),
-		),
-	),
 	'default'   => array(
 		'font-family'    => '',
 		'variant'        => '',
@@ -141,11 +136,6 @@ Kirki::add_field( $config_id, array(
 	'settings'  => 'heading_typography',
 	'section'   => $section,
 	'transport' => 'auto',
-	'choices'   => array(
-		'fonts' => array(
-			'google' => array( 'popularity', 30 ),
-		),
-	),
 	'default'   => array(
 		'font-family'    => '',
 		'variant'        => '',
@@ -173,7 +163,6 @@ Kirki::add_field( $config_id, array(
  * Banner Title.
  */
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Banner Title Color', 'mai-styles' ),
 	'label'     => esc_attr__( 'Banner Title', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'banner_title_color',
@@ -196,7 +185,7 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 	'active_callback' => function() {
-		return ( function_exists( 'mai_is_banner_area_enabled_globally' ) && mai_is_banner_area_enabled_globally() );
+		return ( function_exists( 'mai_is_banner_area_enabled' ) && mai_is_banner_area_enabled() );
 	}
 ) );
 
@@ -206,11 +195,6 @@ Kirki::add_field( $config_id, array(
 	'settings'  => 'banner_title_typography',
 	'section'   => $section,
 	'transport' => 'auto',
-	'choices'   => array(
-		'fonts' => array(
-			'google' => array( 'popularity', 30 ),
-		),
-	),
 	'default'   => array(
 		'font-family'    => '',
 		'font-size'      => '',
@@ -227,7 +211,62 @@ Kirki::add_field( $config_id, array(
 		),
 	),
 	'active_callback' => function() {
-		return ( function_exists( 'mai_is_banner_area_enabled_globally' ) && mai_is_banner_area_enabled_globally() );
+		return ( function_exists( 'mai_is_banner_area_enabled' ) && mai_is_banner_area_enabled() );
+	}
+) );
+
+/**
+ * Section Titles.
+ */
+Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Section Titles', 'mai-styles' ),
+	'type'      => 'multicolor',
+	'settings'  => 'section_title_color',
+	'section'   => $section,
+	'transport' => 'auto',
+	'default'   => '',
+	'choices'   => array(
+		'color' => esc_attr__( 'Color', 'mai-styles' ),
+	),
+	'default' => array(
+		'color' => '',
+	),
+	'output' => array(
+		array(
+			'choice'   => 'color',
+			'property' => 'color',
+			'element'  => array(
+				'.heading',
+			),
+		),
+	),
+	'active_callback' => function() {
+		return is_page_template( 'sections.php' );
+	}
+) );
+
+Kirki::add_field( $config_id, array(
+	'type'      => 'typography',
+	'settings'  => 'section_title_typography',
+	'section'   => $section,
+	'transport' => 'auto',
+	'default'   => array(
+		'font-family'    => '',
+		'font-size'      => '',
+		'variant'        => '',
+		'letter-spacing' => '',
+		'text-transform' => '',
+		// 'color'          => '',
+	),
+	'output' => array(
+		array(
+			'element' => array(
+				'.heading',
+			),
+		),
+	),
+	'active_callback' => function() {
+		return is_page_template( 'sections.php' );
 	}
 ) );
 
@@ -235,7 +274,6 @@ Kirki::add_field( $config_id, array(
  * h1.
  */
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Entry Title Color', 'mai-styles' ),
 	'label'     => esc_attr__( 'Entry Title', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'entry_title_color',
@@ -263,16 +301,10 @@ Kirki::add_field( $config_id, array(
  * h1.
  */
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Entry Title Typography', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'h1_typography',
 	'section'   => $section,
 	'transport' => 'auto',
-	'choices'   => array(
-		'fonts' => array(
-			'google' => array( 'popularity', 30 ),
-		),
-	),
 	'default'   => array(
 		'font-family'    => '',
 		'font-size'      => '',
@@ -390,7 +422,6 @@ Kirki::add_field( $config_id, array(
  * Button (Primary).
  */
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Button Color (Primary)', 'mai-styles' ),
 	'label'     => esc_attr__( 'Button (Primary)', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'button',
@@ -582,16 +613,10 @@ Kirki::add_field( $config_id, array(
 ) );
 
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Button Typography (Primary)', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'button_typography',
 	'section'   => $section,
 	'transport' => 'auto',
-	'choices'   => array(
-		'fonts' => array(
-			'google' => array( 'popularity', 30 ),
-		),
-	),
 	'default'   => array(
 		'font-family'    => '',
 		'variant'        => '',
@@ -619,7 +644,6 @@ Kirki::add_field( $config_id, array(
  * Buttons (Alternate/Secondary).
  */
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Button Color (Alternate)', 'mai-styles' ),
 	'label'     => esc_attr__( 'Button (Alternate)', 'mai-styles' ),
 	'type'      => 'multicolor',
 	'settings'  => 'button_alt_color',
@@ -726,16 +750,10 @@ Kirki::add_field( $config_id, array(
 ) );
 
 Kirki::add_field( $config_id, array(
-	// 'label'     => esc_attr__( 'Button Typography (Alternate)', 'mai-styles' ),
 	'type'      => 'typography',
 	'settings'  => 'button_alt_typography',
 	'section'   => $section,
 	'transport' => 'auto',
-	'choices'   => array(
-		'fonts' => array(
-			'google' => array( 'popularity', 30 ),
-		),
-	),
 	'default'   => array(
 		'font-family'    => '',
 		'variant'        => '',
