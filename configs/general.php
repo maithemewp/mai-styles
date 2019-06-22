@@ -181,6 +181,7 @@ Kirki::add_field( $config_id, array(
 			'property' => 'color',
 			'element'  => array(
 				'.banner-title',
+				'.light-content .banner-title',
 			),
 		),
 	),
