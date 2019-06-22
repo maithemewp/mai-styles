@@ -164,12 +164,17 @@ function maistyles_get_header_before_color_output() {
 			array(
 				'choice'   => 'link_color',
 				'property' => 'color',
-				'element'  => '.header-before a',
+				'element'  => array(
+					'.header-before a',
+				),
 			),
 			array(
 				'choice'   => 'link_hover_color',
 				'property' => 'color',
-				'element'  => array( '.header-before a:hover', '.header-before a:focus' ),
+				'element'  => array(
+					'.header-before a:hover',
+					'.header-before a:focus',
+				),
 			),
 		) );
 	}
