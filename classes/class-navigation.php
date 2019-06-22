@@ -234,7 +234,7 @@ class Mai_Styles_Navigation {
 				'property' => 'color',
 				'element'  => array(
 					"{$this->class}",
-					"{$this->class} a",
+					"{$this->class} .menu-item > a",
 					"{$this->class} .nav-search",
 					"{$this->class} .sub-menu a",
 					".home {$this->class} .current-menu-item > a",
@@ -244,8 +244,8 @@ class Mai_Styles_Navigation {
 				'choice'   => 'item_hover_bg',
 				'property' => 'background-color',
 				'element'  => array(
-					"{$this->class} a:hover",
-					"{$this->class} a:focus",
+					"{$this->class} .menu-item > a:hover",
+					"{$this->class} .menu-item > a:focus",
 					"{$this->class} .sub-menu a:hover",
 					"{$this->class} .sub-menu a:focus",
 					"{$this->class} > .menu-item-has-children:not(.current-menu-ancestor):hover > a",
@@ -255,8 +255,8 @@ class Mai_Styles_Navigation {
 				'choice'   => 'item_hover_color',
 				'property' => 'color',
 				'element'  => array(
-					"{$this->class} a:hover",
-					"{$this->class} a:focus",
+					"{$this->class} .menu-item > a:hover",
+					"{$this->class} .menu-item > a:focus",
 					"{$this->class} .nav-search:hover",
 					"{$this->class} .nav-search:focus",
 					"{$this->class} .sub-menu a:hover",
@@ -646,7 +646,7 @@ class Mai_Styles_Navigation {
 			'output' => array(
 				array(
 					'element' => array(
-						"{$this->class} a",
+						"{$this->class} .menu-item > a",
 						"{$this->class} .menu-item.highlight > a",
 					),
 				),
