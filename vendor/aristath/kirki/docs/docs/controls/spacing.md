@@ -1,8 +1,8 @@
 ---
 layout: default
-title: The "spacing" control
+title: WordPress Customizer Spacing Control
 slug: spacing
-subtitle: Learn how to create controls using Kirki
+subtitle: Learn how to create a spacing control using the Kirki Customizer Framework.
 mainMaxWidth: 55rem;
 bodyClasses: control page
 returns: array
@@ -13,4 +13,4 @@ heroButtons:
     label: Back to Controls
 ---
 
-The `spacing` control is an alias for the `dimensions` control. Please see documentation on [the dimensions field](https://aristath.github.io/kirki/docs/controls/dimensions.html).
+The `spacing` control is an alias for the `dimensions` control. Please see documentation on [the dimensions field](https://kirki.org/docs/controls/dimensions.html).
