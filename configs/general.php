@@ -51,6 +51,7 @@ Kirki::add_field( $config_id, array(
 			'property' => 'background-color',
 			'element'  => array(
 				'body',
+				'body.text-md',
 				'body.has-boxed-site-container'
 			),
 		),
