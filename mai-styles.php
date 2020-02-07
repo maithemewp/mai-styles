@@ -172,6 +172,8 @@ final class Mai_Styles {
 		// Disable Kirki statistics notice.
 		add_filter( 'kirki_telemetry', '__return_false' );
 
+
+
 		// Hooks.
 		add_action( 'init',               array( $this, 'kirki_settings' ) );
 		add_action( 'customize_register', array( $this, 'kirki_gettext' ) );
@@ -236,6 +238,15 @@ final class Mai_Styles {
 		// Bail if no Kirki.
 		if ( ! class_exists( 'Kirki' ) ) {
 			return;
+		}
+
+		// This allows me to symlink the plugin into all my testing environments. Sorry for extra code that's just for me ¯\_(ツ)_/¯.
+		$url = Kirki::$url;
+		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/' ) ) {
+			add_filter( 'kirki_config', function( $config ) use ( $url ) {
+				$config['url_path'] = str_replace( '/Users/JiveDig/Plugins/mai-styles/', plugin_dir_url( __FILE__ ), $url );
+				return $config;
+			});
 		}
 
 		$config_id = $panel_id = $settings_field = 'mai_styles';

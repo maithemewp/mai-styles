@@ -49,22 +49,34 @@ Kirki::add_field( $config_id, array(
 		array(
 			'choice'   => 'bg',
 			'property' => 'background-color',
-			'element'  => array( 'body', 'body.has-boxed-site-container' ),
+			'element'  => array(
+				'body',
+				'body.has-boxed-site-container'
+			),
 		),
 		array(
 			'choice'   => 'color',
 			'property' => 'color',
-			'element'  => array( 'body', 'body.text-md' ),
+			'element'  => array(
+				'body',
+				'body.text-md',
+				'.entry.boxed:not(.has-bg-image)'
+			),
 		),
 		array(
 			'choice'   => 'link',
 			'property' => 'color',
-			'element'  => array( 'body a' ),
+			'element'  => array(
+				'body a'
+			),
 		),
 		array(
 			'choice'   => 'link_hover',
 			'property' => 'color',
-			'element'  => array( 'body a:hover', 'body a:focus' ),
+			'element'  => array(
+				'body a:hover',
+				'body a:focus'
+			),
 		),
 	),
 ) );
