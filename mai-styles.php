@@ -239,13 +239,13 @@ final class Mai_Styles {
 		}
 
 		// This allows me to symlink the plugin into all my testing environments. Sorry for extra code that's just for me ¯\_(ツ)_/¯.
-		$url = Kirki::$url;
-		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/' ) ) {
-			add_filter( 'kirki_config', function( $config ) use ( $url ) {
-				$config['url_path'] = trailingslashit( str_replace( '/Users/JiveDig/Plugins/mai-styles/', plugin_dir_url( __FILE__ ), $url ) );
-				return $config;
-			});
-		}
+		// $url = Kirki::$url;
+		// if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/' ) ) {
+		// 	add_filter( 'kirki_config', function( $config ) use ( $url ) {
+		// 		$config['url_path'] = trailingslashit( str_replace( '/Users/JiveDig/Plugins/mai-styles/', plugin_dir_url( __FILE__ ), $url ) );
+		// 		return $config;
+		// 	});
+		// }
 
 		$config_id = $panel_id = $settings_field = 'mai_styles';
 
@@ -365,6 +365,7 @@ final class Mai_Styles {
 				$header_color ? printf( 'color: %s;', $header_color ) : '';
 			echo '}';
 			if ( $header_color ) {
+				echo '#loginform { color: #444; }';
 				echo 'a,';
 				echo '.login #nav a,';
 				echo '.login #backtoblog a {';
