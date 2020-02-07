@@ -11,6 +11,31 @@ Kirki::add_section( $section, array(
 ) );
 
 /**
+ * Footer Widget Titles.
+ */
+Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Footer Widget Titles', 'mai-styles' ),
+	'type'      => 'typography',
+	'settings'  => 'footer_widget_title_typography',
+	'section'   => $section,
+	'transport' => 'auto',
+	'default'   => array(
+		'font-size'      => '',
+		'variant'        => '',
+		'letter-spacing' => '',
+		'text-transform' => '',
+	),
+	'output' => array(
+		array(
+			'element' => array(
+				'.footer-widgets .widget-title',
+				'.site-footer .widget-title',
+			),
+		),
+	),
+) );
+
+/**
  * Footer Widgets.
  */
 Kirki::add_field( $config_id, array(

@@ -151,13 +151,40 @@ Kirki::add_field( $config_id, array(
 			'element'  => array(
 				'.archive .content > .entry.boxed',
 				'.blog .content > .entry.boxed',
+				'.date .content > .entry.boxed',
 				'.search .content > .entry.boxed',
+				'.archive .content > .row > .entry.boxed',
+				'.blog .content > .row > .entry.boxed',
+				'.date .content > .row > .entry.boxed',
+				'.search .content > .row > .entry.boxed',
 			),
 		),
 	),
 	'active_callback' => function() {
 		return in_array( 'entry_archive', (array) genesis_get_option( 'boxed_elements' ) );
 	}
+) );
+
+/**
+ * Sidebar Widget Titles.
+ */
+Kirki::add_field( $config_id, array(
+	'label'     => esc_attr__( 'Sidebar Widget Titles', 'mai-styles' ),
+	'type'      => 'typography',
+	'settings'  => 'sidebar_widget_title_typography',
+	'section'   => $section,
+	'transport' => 'auto',
+	'default'   => array(
+		'font-size'      => '',
+		'variant'        => '',
+		'letter-spacing' => '',
+		'text-transform' => '',
+	),
+	'output' => array(
+		array(
+			'element' => array( '.sidebar .widget-title' ),
+		),
+	),
 ) );
 
 /**
@@ -183,49 +210,6 @@ Kirki::add_field( $config_id, array(
 			'element'  => '.sidebar-primary.boxed',
 		),
 	),
-
-	'choices'   => array(
-		'bg'         => esc_attr__( 'Background Color', 'mai-styles' ),
-		'color'      => esc_attr__( 'Text Color', 'mai-styles' ),
-		'link'       => esc_attr__( 'Link Color', 'mai-styles' ),
-		'link_hover' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
-	),
-	'default' => array(
-		'bg'         => '',
-		'color'      => '',
-		'link'       => '',
-		'link_hover' => '',
-	),
-	'output' => array(
-		array(
-			'choice'   => 'bg',
-			'property' => 'background-color',
-			'element'  => array( 'body', 'body.has-boxed-site-container' ),
-		),
-		array(
-			'choice'   => 'heading',
-			'property' => 'color',
-			'element'  => array(
-				'.blog .content .entry-title',
-				'.archive .content .entry-title',
-			),
-		),
-		array(
-			'choice'   => 'color',
-			'property' => 'color',
-			'element'  => array( 'body', 'body.text-md' ),
-		),
-		array(
-			'choice'   => 'link',
-			'property' => 'color',
-			'element'  => array( 'a' ),
-		),
-		array(
-			'choice'   => 'link_hover',
-			'property' => 'color',
-			'element'  => array( 'a:hover', 'a:focus' ),
-		),
-	),
 	'active_callback' => function() {
 		return in_array( 'sidebar', (array) genesis_get_option( 'boxed_elements' ) );
 	}
@@ -240,18 +224,45 @@ Kirki::add_field( $config_id, array(
 	'label'     => __( 'Primary Sidebar Widgets', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
-	'default'   => '',
 	'choices'   => array(
-		'bg' => esc_attr__( 'Background', 'mai-styles' ),
+		'bg'               => esc_attr__( 'Background', 'mai-styles' ),
+		'title_color'      => esc_attr__( 'Title Color', 'mai-styles' ),
+		'color'            => esc_attr__( 'Text Color', 'mai-styles' ),
+		'link_color'       => esc_attr__( 'Link Color', 'mai-styles' ),
+		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
+
 	),
 	'default' => array(
-		'bg' => '',
+		'bg'               => '',
+		'color'            => '',
+		'link_color'       => '',
+		'link_hover_color' => '',
 	),
 	'output' => array(
 		array(
 			'choice'   => 'bg',
 			'property' => 'background-color',
 			'element'  => '.sidebar-primary .widget.boxed',
+		),
+		array(
+			'choice'   => 'title_color',
+			'property' => 'color',
+			'element'  => array( '.sidebar-primary .widget.boxed .widgettitle', '.sidebar-primary .widget.boxed .widget-title' ),
+		),
+		array(
+			'choice'   => 'color',
+			'property' => 'color',
+			'element'  => '.sidebar-primary .widget.boxed',
+		),
+		array(
+			'choice'   => 'link_color',
+			'property' => 'color',
+			'element'  => '.sidebar-primary .widget.boxed a',
+		),
+		array(
+			'choice'   => 'link_hover_color',
+			'property' => 'color',
+			'element'  => array( '.sidebar-primary .widget.boxed a:hover', '.sidebar-primary .widget.boxed a:focus' ),
 		),
 	),
 	'active_callback' => function() {
@@ -296,18 +307,45 @@ Kirki::add_field( $config_id, array(
 	'label'     => __( 'Secondary Sidebar Widgets', 'mai-styles' ),
 	'section'   => $section,
 	'transport' => 'auto',
-	'default'   => '',
 	'choices'   => array(
-		'bg' => esc_attr__( 'Background', 'mai-styles' ),
+		'bg'               => esc_attr__( 'Background', 'mai-styles' ),
+		'title_color'      => esc_attr__( 'Title Color', 'mai-styles' ),
+		'color'            => esc_attr__( 'Text Color', 'mai-styles' ),
+		'link_color'       => esc_attr__( 'Link Color', 'mai-styles' ),
+		'link_hover_color' => esc_attr__( 'Link Hover Color', 'mai-styles' ),
+
 	),
 	'default' => array(
-		'bg' => '',
+		'bg'               => '',
+		'color'            => '',
+		'link_color'       => '',
+		'link_hover_color' => '',
 	),
 	'output' => array(
 		array(
 			'choice'   => 'bg',
 			'property' => 'background-color',
 			'element'  => '.sidebar-secondary .widget.boxed',
+		),
+		array(
+			'choice'   => 'title_color',
+			'property' => 'color',
+			'element'  => array( '.sidebar-secondary .widget.boxed .widgettitle', '.sidebar-secondary .widget.boxed .widget-title' ),
+		),
+		array(
+			'choice'   => 'color',
+			'property' => 'color',
+			'element'  => '.sidebar-secondary .widget.boxed',
+		),
+		array(
+			'choice'   => 'link_color',
+			'property' => 'color',
+			'element'  => '.sidebar-secondary .widget.boxed a',
+		),
+		array(
+			'choice'   => 'link_hover_color',
+			'property' => 'color',
+			'element'  => array( '.sidebar-secondary .widget.boxed a:hover', '.sidebar-secondary .widget.boxed a:focus' ),
 		),
 	),
 	'active_callback' => function() {
