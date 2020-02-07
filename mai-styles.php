@@ -172,8 +172,6 @@ final class Mai_Styles {
 		// Disable Kirki statistics notice.
 		add_filter( 'kirki_telemetry', '__return_false' );
 
-
-
 		// Hooks.
 		add_action( 'init',               array( $this, 'kirki_settings' ) );
 		add_action( 'customize_register', array( $this, 'kirki_gettext' ) );
@@ -244,7 +242,7 @@ final class Mai_Styles {
 		$url = Kirki::$url;
 		if ( false  !== strpos ( $url, '/Users/JiveDig/Plugins/' ) ) {
 			add_filter( 'kirki_config', function( $config ) use ( $url ) {
-				$config['url_path'] = str_replace( '/Users/JiveDig/Plugins/mai-styles/', plugin_dir_url( __FILE__ ), $url );
+				$config['url_path'] = trailingslashit( str_replace( '/Users/JiveDig/Plugins/mai-styles/', plugin_dir_url( __FILE__ ), $url ) );
 				return $config;
 			});
 		}
