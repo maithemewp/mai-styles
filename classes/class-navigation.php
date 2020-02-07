@@ -760,7 +760,7 @@ class Mai_Styles_Navigation {
 		// Loop thru em.
 		foreach ( $menu_items as $item ) {
 			// If we have a highlight.
-			if ( in_array( 'highlight', $item->classes ) ) {
+			if ( in_array( 'highlight', (array) $item->classes ) ) {
 				return true;
 				continue;
 			}
