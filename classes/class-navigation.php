@@ -762,7 +762,6 @@ class Mai_Styles_Navigation {
 			// If we have a highlight.
 			if ( in_array( 'highlight', (array) $item->classes ) ) {
 				return true;
-				continue;
 			}
 		}
 
