@@ -23,6 +23,7 @@ var kirkiPostMessage = {
 		 * @returns {void}
 		 */
 		add: function( id ) {
+			id = id.replace( '[', '-' ).replace( ']', '' );
 			if ( null === document.getElementById( 'kirki-postmessage-' + id ) || 'undefined' === typeof document.getElementById( 'kirki-postmessage-' + id ) ) {
 				jQuery( 'head' ).append( '<style id="kirki-postmessage-' + id + '"></style>' );
 			}
@@ -38,6 +39,7 @@ var kirkiPostMessage = {
 		 * @returns {void}
 		 */
 		addData: function( id, styles ) {
+			id = id.replace( '[', '-' ).replace( ']', '' );
 			kirkiPostMessage.styleTag.add( id );
 			jQuery( '#kirki-postmessage-' + id ).text( styles );
 		}
