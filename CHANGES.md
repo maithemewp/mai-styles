@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1 (2/7/20)
+* Fixed: A few edge case bugs some customers hit.
+
 ## 0.8.0 (2/7/20)
 * Added: Color and Typography settings for Section Titles.
 * Added: Sidebar Widget Titles typography settings.
