@@ -1,10 +1,14 @@
 # Changelog
 
-## 0.8.0 (TBD)
+## 0.8.0 (2/7/20)
 * Added: Color and Typography settings for Section Titles.
+* Added: Sidebar Widget Titles typography settings.
+* Added: Footer Widget Titles typography settings.
 * Added: Color settings for WooCommerce Store Notice.
 * Changed: No longer limiting the amount of Google Font choices.
-* Fixed: Body text color not working in some themes.
+* Fixed: Before Header widget area color output sometimes not working correctly.
+* Fixed: More thorough body text color color output.
+* Fixed: More thorough body background color output.
 * Fixed: WooCommerce alt button style now work on table buttons (action links) and review submit buttons.
 
 ## 0.7.1 (1/24/19)
