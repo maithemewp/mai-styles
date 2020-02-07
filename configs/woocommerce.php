@@ -399,9 +399,9 @@ Kirki::add_field( $config_id, array(
 			),
 		),
 	),
-	'active_callback' => function() {
-		return ( function_exists( 'is_store_notice_showing' ) && is_store_notice_showing() );
-	}
+	// 'active_callback' => function() {
+	// 	return ( function_exists( 'is_store_notice_showing' ) && is_store_notice_showing() );
+	// }
 ) );
 
 /**
