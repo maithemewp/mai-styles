@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.2 (2/10/20)
+* Fixed: Sub-menu typography not overriding menu settings when both are used.
+
 ## 0.8.1 (2/7/20)
 * Fixed: A few edge case bugs some customers hit.
 
