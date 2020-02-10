@@ -686,7 +686,7 @@ class Mai_Styles_Navigation {
 			'output' => array(
 				array(
 					'element' => array(
-						"{$this->class} .sub-menu a",
+						"{$this->class} .sub-menu .menu-item > a",
 					),
 				),
 			),
