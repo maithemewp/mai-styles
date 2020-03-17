@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0 (3/17/20)
+* Changed: Update Kirki.
+* Changed: Updated Kirki config filter.
+
 ## 0.8.2 (2/10/20)
 * Fixed: Sub-menu typography not overriding menu settings when both are used.
 
