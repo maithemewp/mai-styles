@@ -169,8 +169,11 @@ final class Mai_Styles {
 		// Maybe deactivate. Run after Mai Theme.
 		add_action( 'plugins_loaded', array( $this, 'maybe_deactivate' ), 20 );
 
-		// Disable Kirki statistics notice.
-		add_filter( 'kirki_telemetry', '__return_false' );
+		// Setup kirki url to point to our plugin.
+		add_filter( 'kirki/config', function( $config ) {
+			$config['url_path'] = MAI_STYLES_PLUGIN_URL . 'vendor/aristath/kirki';
+			return $config;
+		});
 
 		// Hooks.
 		add_action( 'init',               array( $this, 'kirki_settings' ) );
