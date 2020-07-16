@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1 (3/17/20)
+* Changed: Update Kirki.
+* Fixed: Heading font now overrides widget titles and other headings more consistently.
+
 ## 0.9.0 (3/17/20)
 * Changed: Update Kirki.
 * Changed: Updated Kirki config filter.
