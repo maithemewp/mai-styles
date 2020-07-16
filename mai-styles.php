@@ -5,7 +5,7 @@
  * Plugin URI:      https://maitheme.com/
  * Description:     Easily adjust fonts, colors, and more in Mai Theme powered websites.
  *
- * Version:         0.9.0
+ * Version:         0.9.1
  *
  * GitHub URI:      maithemewp/mai-styles
  *
@@ -93,7 +93,7 @@ final class Mai_Styles {
 
 		// Plugin version.
 		if ( ! defined( 'MAI_STYLES_VERSION' ) ) {
-			define( 'MAI_STYLES_VERSION', '0.9.0' );
+			define( 'MAI_STYLES_VERSION', '0.9.1' );
 		}
 
 		// Plugin Folder Path.
