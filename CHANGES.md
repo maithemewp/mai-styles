@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2 (8/19/20)
+* Added: More Google fonts available in typography settings.
+* Changed: Update Kirki.
+
 ## 0.9.1 (3/17/20)
 * Changed: Update Kirki.
 * Fixed: Heading font now overrides widget titles and other headings more consistently.
